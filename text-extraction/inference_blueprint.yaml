@@ -1,0 +1,51 @@
+---
+title: Text Extraction Inference2
+version: 1.0.0
+description: "Detecting and returning text value from images"
+long_description: "Detecting the text value in from scanned or digital pdfs and returning the text values."
+author: "cnvrg"
+author_email: "libhub@cnvrg.io"
+
+
+tags:
+  - inference
+
+
+tasks:
+  - title: Inference
+    top: 400
+    left: 300
+
+    type: deploy
+
+    library: text-extraction-inference
+    library_version: 1.0.0
+
+    kind: webservice
+
+    requirements:
+      cpu: 3.5
+      memory: 8
+      gpu: 0
+      hpu: 0
+
+    image: cnvrg/cnvrg:v5.0
+    language: python3
+
+    accept_files: false
+    gunicorn_config:
+    - key: workers
+      value: '1'
+    - key: timeout
+      value: '250'
+    file_name: predict.py 
+    function_name: predict
+    prep_file: '' 
+    prep_function: '' 
+    input_example:
+      pdf: file
+    input_schema:
+      pdf: file
+    output_schema: {}
+      
+relations: []

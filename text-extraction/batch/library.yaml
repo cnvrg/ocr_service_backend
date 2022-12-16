@@ -1,0 +1,30 @@
+---
+title: PDF Extraction Batch 
+version: 1.0.0
+description: "Extract text from the pdfs in the given directory"
+long_description: "Extract text from all pdfs in the given directory and store it in a json format."
+icon: python
+
+author: "cnvrg"
+author_email: "info@cnvrg.io"
+
+tags:
+  - training
+
+command: python3 batch_predict.py
+
+requirements:
+  cpu: 3.5
+  memory: 8
+  gpu: 0
+  hpu: 0
+
+image: python:3.8.6
+
+language: python3
+
+arguments:
+  - key: 'dir'
+    type: 'categorical'
+    values:
+      - '/data/pdfs/'
