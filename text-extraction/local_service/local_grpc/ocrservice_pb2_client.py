@@ -165,4 +165,4 @@ def process_shared_files():
 
 if __name__ == "__main__":
     logging.basicConfig()
-    process_uploaded_files()
+    process_S3_files()

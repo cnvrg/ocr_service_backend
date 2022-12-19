@@ -30,7 +30,8 @@ def makeLocalWorkingDir(prefix="ocrResults", wdir="/tmp") -> str:
 
 def get_s3files(s3req: ocrservice_pb2.S3request) -> Tuple[int, List[str]]:
     """s3connect client for fetching files from s3 clounds"""
-    with grpc.insecure_channel("localhost:50051") as channel:
+    # with grpc.insecure_channel("localhost:50051") as channel:
+    with grpc.insecure_channel("172.17.0.1:50000") as channel:
         stub = s3connect_pb2_grpc.s3connectStub(channel)
 
         file_path = makeLocalWorkingDir(prefix="s3files", wdir="/tmp")
