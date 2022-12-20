@@ -1,4 +1,4 @@
-Container_Name=${1:-${USER}'_ocr_poc2'}
+Container_Name=${1:-${USER}'_poc2'}
 Container_Image=${2:-"lamatriz/wlpu:ubuntu_20.04_blueprint_poc2"}
 
 
