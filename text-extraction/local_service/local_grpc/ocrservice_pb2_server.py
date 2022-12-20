@@ -7,6 +7,7 @@ import urllib.request
 import requests
 from typing import List, Tuple
 import json
+
 from inference.predict import predict
 from signal import signal, SIGTERM, SIGINT
 import time
@@ -31,7 +32,16 @@ def makeLocalWorkingDir(prefix="ocrResults", wdir="/tmp") -> str:
 def get_s3files(s3req: ocrservice_pb2.S3request) -> Tuple[int, List[str]]:
     """s3connect client for fetching files from s3 clounds"""
     # with grpc.insecure_channel("localhost:50051") as channel:
-    with grpc.insecure_channel("172.17.0.1:50000") as channel:
+    local_server_port = os.environ.get('LOCAL_SERVER_PORT')
+    s3_service_address = os.environ.get('S3_SERVICE_ADDRESS')
+    if local_server_port is None: 
+        local_server_port = "50051"
+
+    if s3_service_address is None:
+        print("Need S3_SERVICE_ADDRESS")
+        """ raise exception / return error """ 
+
+    with grpc.insecure_channel(f"{s3_service_address}:{local_server_port}") as channel:
         stub = s3connect_pb2_grpc.s3connectStub(channel)
 
         file_path = makeLocalWorkingDir(prefix="s3files", wdir="/tmp")
@@ -182,9 +192,14 @@ class ocrserviceServicer(ocrservice_pb2_grpc.ocrserviceServicer):
 
 
 def serve():
+    local_server_port = os.environ.get('LOCAL_SERVER_PORT')
+    if local_server_port is None: 
+        local_server_port = "50051"
+    
+    local_server_address = "[::]"
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     ocrservice_pb2_grpc.add_ocrserviceServicer_to_server(ocrserviceServicer(), server)
-    server.add_insecure_port("[::]:50052")
+    server.add_insecure_port(f"{local_server_address}:{local_server_port}")
     server.start()
 
     def sigterm_handler(*_):

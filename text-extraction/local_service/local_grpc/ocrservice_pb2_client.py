@@ -130,7 +130,7 @@ def get_inference_results_uploadFiles(stub: ocrservice_pb2_grpc.ocrserviceStub):
 def process_S3_files():
     """handle S3 files inference request"""
 
-    with grpc.insecure_channel("localhost:50052") as channel:
+    with grpc.insecure_channel("localhost:50051") as channel:
         stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
         print("-------------- requesting s3 files for inference --------------")
         get_inference_results_s3(stub)
@@ -139,7 +139,7 @@ def process_S3_files():
 def process_http_files():
     """handle http files inference request"""
 
-    with grpc.insecure_channel("localhost:50052") as channel:
+    with grpc.insecure_channel("localhost:50051") as channel:
         stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
         print("-----------sending files as http link --------------")
         get_inference_results_httplink(stub)
@@ -148,7 +148,7 @@ def process_http_files():
 def process_uploaded_files():
     """handle S3 direct file upload for inference request"""
 
-    with grpc.insecure_channel("localhost:50052") as channel:
+    with grpc.insecure_channel("localhost:50051") as channel:
         stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
         print("------------upload files for inference  --------------")
         get_inference_results_uploadFiles(stub)
@@ -157,7 +157,7 @@ def process_uploaded_files():
 def process_shared_files():
     """handle shared files inference request"""
 
-    with grpc.insecure_channel("localhost:50052") as channel:
+    with grpc.insecure_channel("localhost:50051") as channel:
         stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
         print("------------upload files for inference  --------------")
         get_inference_results_shared(stub)
