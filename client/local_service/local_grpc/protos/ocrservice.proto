@@ -1,0 +1,115 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc_local.ocrservice";
+option java_outer_classname = "ocrserviceProto";
+option objc_class_prefix = "OCR";
+
+package ocrservice;
+
+// Interface exported by the server.
+service ocrservice {
+  // A simple RPC.
+  //
+  // Obtain text from pfd and image documents. 
+  //
+
+  //
+  // Process a direct request document sent via s3, filename located on shared storage
+  // or direcct file public url
+  // stream the respose back as a json file. 
+
+
+  rpc ProcessInfra(OCRrequestInference) returns (stream OCRresponse) {} 
+  rpc ProcessBatch(OCRrequestBatch)    returns (stream OCRresponse) {}
+
+  // client upload file firectly 
+
+  rpc ProcessUpload(stream OCRuploadFiles) returns (stream OCRresponse) {}
+
+ 
+}
+
+//import "s3connect.proto";
+
+message S3env {
+    string aws_access_key_id = 1;
+    string aws_secret_access_key= 2;
+}
+
+message S3args {
+    string endpoint = 1;
+    string command = 2;
+    string bucketname = 3;
+    optional string file = 4;
+    optional string prefix = 5;
+    string localdir = 6;
+}
+
+message S3request {
+    S3args args = 1;
+    S3env env = 2;
+}
+
+// S3 request message
+message S3response {
+    S3args  request = 1;
+    int32   status = 2;
+    repeated string files = 3;
+}
+
+// direct file request
+message OCRrequestInference { 
+        optional S3request s3Info = 1;
+        repeated string filename = 2;
+        repeated string httplink = 3;
+}
+
+// batch file request
+message OCRrequestBatch {
+        optional S3request s3Info = 1;
+        repeated string filename = 2;
+        repeated string httplink = 3;
+}
+
+// stream upload file request 
+message OCRuploadFiles {
+    oneof file_info {
+        string filename=1;
+        bytes data =2;
+    }
+}
+
+// ocr response status 
+enum OCRretunStatus {
+    sucess = 0;
+    s3_error =1;
+    file_error =2;
+    other_error =3;
+}
+
+// ocr response 
+// status code 
+// results file
+
+message OCRresponse {
+        OCRretunStatus status = 1;
+        bytes data = 2; 
+    
+}
+
+
