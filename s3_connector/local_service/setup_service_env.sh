@@ -2,7 +2,7 @@ export HOME_ROOT="/root/ocr_service_backend/s3_connector"
 
 
 
-export PTHONPATH=${HOME_ROOT}
+export PYTHONPATH=${HOME_ROOT}
 
 export LOCAL_SERVER_PORT=50051
 
