@@ -17,6 +17,9 @@ RUN pip install numpy \
         && pip install grpcio-tools
 
 RUN mkdir /cnvrg
+RUN mkdir /root/ocr_service_backend
 
-ADD  s3_connector     /root/s3_connector
-ADD  text-extraction  /root/text-extraction
+ADD  s3_connector     /root/ocr_service_backend/s3_connector
+ADD  text-extraction  /root/ocr_service_backend/text-extraction
+ADD  client  /root/ocr_service_backend/client
+COPY data/*  /cnvr/

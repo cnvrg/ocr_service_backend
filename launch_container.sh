@@ -1,5 +1,5 @@
-Container_Name=${1:-${USER}'_s3_service_poc2'}
-Container_Image=${2:-"lamatriz/wlpu:ubuntu_20.04_s3service_v1"}
+Container_Name=${1:-${USER}'_client_service_mvp_set1'}
+Container_Image=${2:-"lamatriz/wlpu:ubuntu_20.04_MVP_Set1"}
 
 
 Constainer_results=${PWD}

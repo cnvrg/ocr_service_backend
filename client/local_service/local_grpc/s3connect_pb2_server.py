@@ -112,15 +112,9 @@ class s3connectServicer(s3connect_pb2_grpc.s3connectServicer):
 
 
 def serve():
-    local_server_port = os.environ.get('LOCAL_SERVER_PORT')
-    if local_server_port is None: 
-        local_server_port = "50051"
-    
-    local_server_address = "[::]"
-    
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     s3connect_pb2_grpc.add_s3connectServicer_to_server(s3connectServicer(), server)
-    server.add_insecure_port(f"{local_server_address}:{local_server_port}")
+    server.add_insecure_port("[::]:50051")
     server.start()
 
     def sigterm_handler(*_):
