@@ -4,7 +4,7 @@ export INFERENCE_DIR="${HOME_ROOT}/inference"
 export BATCH_DIR="${HOME_ROOT}/batch"
 export LOCAL_GRPC_DIR="${HOME_ROOT}/local_service/local_grpc"
 
-export PTHONPATH=${INFERENCE_DIR}:${HOME_ROOT}
+export PYTHONPATH=${INFERENCE_DIR}:${HOME_ROOT}
 
 export LOCAL_SERVER_PORT=50051
 export S3_SERVICE_ADDRESS="172.17.0.2"
