@@ -20,6 +20,8 @@ def read_json_file(json_file_name: str):
     return data
 
 
+    
+
 class test_ocr_client(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -40,10 +42,12 @@ class test_ocr_client(unittest.TestCase):
         cls.httplinks = test_cfg["ocr_client_cfg"]["httplinks"]
         cls.files = test_cfg["ocr_client_cfg"]["files"]
         cls.service_network: dict = test_cfg["ocr_client_cfg"]["service_network"]
+        
+        cls.service_network['remote_service_address'] = os.environ.get('OCR_SERVICE_ADDRESS')
 
         cls.ocr_client_obj = grpc_client_base.ocr_grpc_client(**cls.service_network)
 
-    # @unittest.skip(" running one test at time ")
+    @unittest.skip(" running one test at time ")
     def test_ocr_s3_processing(self):
         """request OCR service to download S3 pdf and process them"""
         actual_results_file = self.ocr_client_obj.process_S3_files(self.s3_cfg)
@@ -71,7 +75,7 @@ class test_ocr_client(unittest.TestCase):
 
         self.assertEqual(self.validation_results, actual_results)
 
-    @unittest.skip(" running one test at time ")
+    # @unittest.skip(" running one test at time ")
     def test_uploaded_files(self):
         """bidirectional stream: upload pdf files to OCR service for processing"""
         actual_results_file = self.ocr_client_obj.process_uploaded_files(self.files)
