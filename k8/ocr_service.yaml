@@ -31,7 +31,7 @@ spec:
         command: ["/usr/bin/bash"]
         args: ["-c", ". /root/ocr_service_backend/text-extraction/local_service/setup_ocr_requirements.sh"]
         command: ["/usr/bin/bash"]
-        args: ["-c", "bash /root/ocr_service_backend/s3_connector/local_service/start_service.sh"]
+        args: ["-c", "bash /root/ocr_service_backend/text-extraction/local_service/start_service.sh"]
         imagePullPolicy: Always
         ports:
         - containerPort: 50051
