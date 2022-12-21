@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-be
+  template:
+    metadata:
+      labels:
+        app: client-be
+    spec:
+      containers:
+      - name: client-mvp-set1
+        image: lamatriz/wlpu:ubuntu_20.04_MVP_Set1
+        command: ["sleep"]
+        args: ["1h"]
+
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 50051
+      imagePullSecrets:
+      - name: regcred
