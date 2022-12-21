@@ -50,11 +50,13 @@ class workload_launcher:
 def main():
     start_client = "bash"
 
-    start_s3_service = 'bash -c ". /root/ocr_service_backend/s3_connector/local_service/setup_s3_requirements.sh.sh'
-    start_s3_service = f"{start_s3_service} && bash /root/ocr_service_backend/s3_connector/local_service/start_service.sh"
+    start_s3_service =                 "bash -c \". /root/ocr_service_backend/s3_connector/local_service/setup_s3_requirements.sh"
+    start_s3_service = f"{start_s3_service} && bash  \""
+    #start_s3_service = f"{start_s3_service} && bash /root/ocr_service_backend/s3_connector/local_service/start_service.sh \""
 
-    start_ocr_service = 'bash -c ". /root/ocr_service_backend/text-extraction/local_service/setup_s3_requirements.sh.sh'
-    start_ocr_service = f"{start_ocr_service} && bash /root/text-extraction/s3_connector/local_service/setup_ocr_requirements.sh"
+    start_ocr_service =                  "bash -c \". /root/ocr_service_backend/text-extraction/local_service/setup_ocr_requirements.sh"
+    start_ocr_service = f"{start_ocr_service} && bash  \" "
+    #start_ocr_service = f"{start_ocr_service} && bash /root/ocr_service_backend/text-extraction/local_service/start_service.sh \" "
 
     containers = [
         container_info(
