@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename ${BASH_SOURCE[0]})
 SERVICE_ENV_SCRIPT="${SCRIPT_DIRECTORY}/setup_service_env.sh"
 source ${SERVICE_ENV_SCRIPT}
 
-INFERENCE_REQUIREMENTS="${INFERENCE_DIR}/requirement.txt"
+INFERENCE_REQUIREMENTS="${INFERENCE_DIR}/requirements.txt"
 BATCH_PRERUN="${BATCH_DIR}/prerun.sh"
 
 if [ -f  ${INFERENCE_REQUIREMENTS} ]; then

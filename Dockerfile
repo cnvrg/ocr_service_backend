@@ -22,4 +22,4 @@ RUN mkdir /root/ocr_service_backend
 ADD  s3_connector     /root/ocr_service_backend/s3_connector
 ADD  text-extraction  /root/ocr_service_backend/text-extraction
 ADD  client  /root/ocr_service_backend/client
-COPY data/*  /cnvr/
+COPY data/*  /cnvrg/
