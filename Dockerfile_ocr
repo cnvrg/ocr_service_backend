@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install -y tzdata bash-completion python3-pip open
         tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev \
         && rm -rf /var/lib/apt/lists/* 
 
-
-RUN pip install numpy \
+RUN pip install --upgrade pip \
+        && pip install numpy \
         && pip install -U scikit-learn \
         && pip install pandas \
         && pip install jupyterlab \
@@ -19,24 +19,23 @@ RUN pip install numpy \
         && pip install grpcio-tools \
         && pip uninstall -y pillow \
         && pip install --no-cache-dir pillow \
-        && pip numpy>=1.16.0,<2.0.0 \
-        && pip scipy>=1.4.0 \
-        && pip h5py>=3.1.0 \
-        && pip opencv-python>=3.4.5.20 \
-        && pip pypdfium2>=2.1.0, <3.0.0 \
-        && pip pyclipper>=1.2.0 \
-        && pip shapely>=1.6.0 \
-        && pip matplotlib>=3.1.0,<3.4.3 \
-        && pip mplcursors>=0.3 \
-        && pip weasyprint>=52.2,<53.0 \
-        && pip unidecode>=1.0.0 \
-        && pip torch>=1.8.0 \
-        && pip torchvision>=0.9.0 \
-        && pip Pillow>=8.3.2 \
-        && pip tqdm>=4.30.0 \
-        && pip rapidfuzz>=1.6.0 \
-        && pip huggingface-hub>=0.4.0 \
-        && pip PyPDF2==2.10.2
+        && pip install "numpy>=1.16.0,<2.0.0" \
+        && pip install "scipy>=1.4.0" \
+        && pip install "h5py>=3.1.0" \
+        && pip install "opencv-python>=3.4.5.20" \
+        && pip install "pypdfium2>=2.1.0, <3.0.0" \
+        && pip install "pyclipper>=1.2.0" \
+        && pip install "shapely>=1.6.0" \
+        && pip install "matplotlib>=3.1.0,<3.4.3" \
+        && pip install "mplcursors>=0.3" \
+        && pip install "weasyprint>=52.2,<53.0" \
+        && pip install "unidecode>=1.0.0" \
+        && pip install "torchvision>=0.9.0" \
+        && pip install "Pillow>=8.3.2" \
+        && pip install "tqdm>=4.30.0" \
+        && pip install "rapidfuzz>=1.6.0" \
+        && pip install "huggingface-hub>=0.4.0" \
+        && pip install "PyPDF2==2.10.2"
 
 RUN mkdir /cnvrg
 RUN mkdir /root/ocr_service_backend
