@@ -41,6 +41,10 @@ class test_ocr_client(unittest.TestCase):
         cls.files = test_cfg["ocr_client_cfg"]["files"]
         cls.service_network: dict = test_cfg["ocr_client_cfg"]["service_network"]
 
+        cls.service_network["remote_service_address"] = os.environ.get(
+            "OCR_SERVICE_ADDRESS"
+        )
+
         cls.ocr_client_obj = grpc_client_base.ocr_grpc_client(**cls.service_network)
 
     # @unittest.skip(" running one test at time ")
