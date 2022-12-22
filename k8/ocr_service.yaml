@@ -29,9 +29,7 @@ spec:
         image: lamatriz/wlpu:ubuntu_20.04_MVP_Set1
         #image: lamatriz/wlpu:poc1_crohn_app
         command: ["/usr/bin/bash"]
-        args: ["-c", ". /root/ocr_service_backend/text-extraction/local_service/setup_ocr_requirements.sh"]
-        command: ["/usr/bin/bash"]
-        args: ["-c", "bash /root/ocr_service_backend/text-extraction/local_service/start_service.sh"]
+        args: ["-c", ". /root/ocr_service_backend/text-extraction/local_service/setup_ocr_requirements.sh ; bash /root/ocr_service_backend/text-extraction/local_service/start_service.sh"]
         imagePullPolicy: Always
         ports:
         - containerPort: 50051

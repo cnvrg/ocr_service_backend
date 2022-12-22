@@ -1,0 +1,47 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND="noninteractive"  TZ=Etc/UTC
+RUN apt-get update && apt-get install -y tzdata bash-completion python3-pip openssh-server vim git iputils-ping net-tools\
+        libgl1-mesa-dev libpangocairo-1.0-0 python-dev libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext \
+        tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev \
+        && rm -rf /var/lib/apt/lists/* 
+
+
+RUN pip install numpy \
+        && pip install -U scikit-learn \
+        && pip install pandas \
+        && pip install jupyterlab \
+        && pip install matplotlib \
+        && pip install pyyaml \
+        && pip install "fastapi[all]" \
+        && pip install requests \
+        && pip install grpcio \
+        && pip install grpcio-tools \
+        && pip uninstall -y pillow \
+        && pip install --no-cache-dir pillow \
+        && pip numpy>=1.16.0,<2.0.0 \
+        && pip scipy>=1.4.0 \
+        && pip h5py>=3.1.0 \
+        && pip opencv-python>=3.4.5.20 \
+        && pip pypdfium2>=2.1.0, <3.0.0 \
+        && pip pyclipper>=1.2.0 \
+        && pip shapely>=1.6.0 \
+        && pip matplotlib>=3.1.0,<3.4.3 \
+        && pip mplcursors>=0.3 \
+        && pip weasyprint>=52.2,<53.0 \
+        && pip unidecode>=1.0.0 \
+        && pip torch>=1.8.0 \
+        && pip torchvision>=0.9.0 \
+        && pip Pillow>=8.3.2 \
+        && pip tqdm>=4.30.0 \
+        && pip rapidfuzz>=1.6.0 \
+        && pip huggingface-hub>=0.4.0 \
+        && pip PyPDF2==2.10.2
+
+RUN mkdir /cnvrg
+RUN mkdir /root/ocr_service_backend
+
+ADD  s3_connector     /root/ocr_service_backend/s3_connector
+ADD  text-extraction  /root/ocr_service_backend/text-extraction
+ADD  client  /root/ocr_service_backend/client
+COPY data/*  /cnvrg/
