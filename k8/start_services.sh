@@ -1,4 +1,4 @@
-yamls=("client_deployment.yaml" "ocr_service.yaml" "s3_service.yaml")
+yamls=("s3_service.yaml" "ocr_service.yaml" "client_deployment.yaml")
 
 for y in ${yamls[@]}; do 
 	echo starting $y
