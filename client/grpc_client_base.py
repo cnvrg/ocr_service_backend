@@ -3,7 +3,7 @@ from datetime import datetime
 import logging
 from typing import List
 from dataclasses import dataclass, field, asdict, replace
-
+import coloredlogs, logging
 import grpc
 import local_service.local_grpc.ocrservice_pb2 as ocrservice_pb2
 import local_service.local_grpc.ocrservice_pb2_grpc as ocrservice_pb2_grpc
@@ -11,10 +11,29 @@ import local_service.local_grpc.ocrservice_pb2_grpc as ocrservice_pb2_grpc
 import local_service.local_grpc.s3connect_pb2 as s3connect_pb2
 import local_service.local_grpc.s3connect_pb2_grpc as s3connect_pb2_grpc
 
+clbaselogs = logging.getLogger(__name__)
+coloredlogs.install(level=logging.DEBUG, logger=clbaselogs)
 
-class base_grpc_client:
+class base_logger:
     def __init__(self):
-        print("base is called")
+        self.locallogger = logging.getLogger(__name__)
+        coloredlogs.install(level=logging.DEBUG, logger=self.locallogger) 
+        self.locallogger.setLevel(logging.INFO)
+    
+        logformat = logging.Formatter(fmt="%(asctime)s:%(levelname)s:%(message)s", datefmt="%H:%M:%S")
+        
+        logstream = logging.StreamHandler()
+        logstream.setLevel(logging.INFO)
+        logstream.setFormatter(logformat)
+        self.locallogger.addHandler(logstream)
+        
+    def get_logger(self):
+        return self.locallogger
+
+class base_grpc_client(base_logger):
+    def __init__(self):
+        super().__init__()
+        self.locallogger.debug("base is called")
         self.remote_service_address = "localhost"
         self.remote_service_port = "50051"
 
@@ -43,8 +62,9 @@ class s3_grpc_client(base_grpc_client):
         remote_service_address=None,
         remote_service_port=None,
     ):
-        print("s3_client called")
+        
         super().__init__()
+        self.locallogger.debug("s3_client called")
         self.endpoint = endpoint if endpoint is not None else "http://s3.amazonaws.com"
         self.command = command if command is not None else "download"
         self.localdir = download_dir if download_dir is not None else "/cnvrg"
@@ -66,13 +86,13 @@ class s3_grpc_client(base_grpc_client):
             f"{self.remote_service_address}:{self.remote_service_port}"
         )
 
-        print(f"{self.endpoint=}")
-        print(f"{self.command=}")
-        print(f"{self.bucketname=}")
-        print(f"{self.localdir=}")
-        print(f"{self.prefix=}")
-        print(f"{self.file=}")
-        print(f"{self.key_id=}")
+        self.locallogger.info(f"{self.endpoint=}")
+        self.locallogger.info(f"{self.command=}")
+        self.locallogger.info(f"{self.bucketname=}")
+        self.locallogger.info(f"{self.localdir=}")
+        self.locallogger.info(f"{self.prefix=}")
+        self.locallogger.info(f"{self.file=}")
+        self.locallogger.info(f"{self.key_id=}")
 
     def build_S3regquest_msg(self):
         req: s3connect_pb2.S3request = s3connect_pb2.S3request()
@@ -92,7 +112,7 @@ class s3_grpc_client(base_grpc_client):
 
         res = stub.DownloadFilesToLocation(self.build_S3regquest_msg())
 
-        print(res)
+        self.locallogger.info(res)
 
     def download_files(self, stub: s3connect_pb2_grpc.s3connectStub):
         """Request download from S3 and accept these files via server stream"""
@@ -101,27 +121,27 @@ class s3_grpc_client(base_grpc_client):
         files: List[str] = []
         for res in stub.GetFiles(self.build_S3regquest_msg()):
             if res.filename:
-                print(f"{res.filename=}")
+                self.locallogger.info(f"{res.filename=}")
                 filename = f"{file_path}/{res.filename}"
                 files.append(filename)
             else:
                 with open(filename, "ab") as rf:
                     rf.write(res.data)
 
-        print(f"Received: {files}")
+        self.locallogger.info(f"Received: {files}")
 
     def download_to_shared(self):
         """request files to be download to shared location"""
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = s3connect_pb2_grpc.s3connectStub(channel)
-            print("---downloading files to shared location---")
+            self.locallogger.info("---downloading files to shared location---")
             self.download_to_location(stub)
 
     def download_to_stream(self):
         """request downloaded files to be streamed back to client"""
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = s3connect_pb2_grpc.s3connectStub(channel)
-            print("---streamming requested files---")
+            self.locallogger.info("---streamming requested files---")
             self.download_files(stub)
 
 
@@ -161,13 +181,13 @@ class ocr_grpc_client(base_grpc_client):
         ocrreq = ocrservice_pb2.OCRrequestInference()
         ocrreq.s3Info.CopyFrom(req)
 
-        print("----------send request for S3 files inference------------")
+        self.locallogger.info("----------send request for S3 files inference------------")
         for seq in stub.ProcessInfra(ocrreq):
 
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        print(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(f"-----------received: {results_file} -------------------")
         return results_file
 
     def get_inference_results_httplink(
@@ -185,13 +205,13 @@ class ocr_grpc_client(base_grpc_client):
         ocrreq = ocrservice_pb2.OCRrequestInference()
         ocrreq.httplink.extend(httplinks)
 
-        print("----------send request for httpLink files inference------------")
+        self.locallogger.info("----------send request for httpLink files inference------------")
         for seq in stub.ProcessInfra(ocrreq):
 
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        print(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(f"-----------received: {results_file} -------------------")
 
         return results_file
 
@@ -212,13 +232,13 @@ class ocr_grpc_client(base_grpc_client):
         ocrreq = ocrservice_pb2.OCRrequestInference()
         ocrreq.filename.extend(shared_files)
 
-        print("----------send request for shared files inference------------")
+        self.locallogger.info("----------send request for shared files inference------------")
         for seq in stub.ProcessInfra(ocrreq):
 
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        print(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(f"-----------received: {results_file} -------------------")
         return results_file
 
     def upload_files_iter(self, files: List[str]):
@@ -228,7 +248,7 @@ class ocr_grpc_client(base_grpc_client):
         for file in files:
             file_name_no_path = file.split("/")[-1]
             # send file name first
-            print(f"uploading {file=}, {file_name_no_path=}")
+            self.locallogger.info(f"uploading {file=}, {file_name_no_path=}")
             yield ocrservice_pb2.OCRuploadFiles(filename=file_name_no_path)
             # Then stream the file it self
             with open(file, mode="rb") as fs:
@@ -256,13 +276,13 @@ class ocr_grpc_client(base_grpc_client):
         #    "/cnvrg/economics.pdf",
         # ]
 
-        print("----------upload files and get response ------------")
+        self.locallogger.info("----------upload files and get response ------------")
         for seq in stub.ProcessUpload(self.upload_files_iter(files=files)):
 
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        print(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(f"-----------received: {results_file} -------------------")
         return results_file
 
     def process_S3_files(self, s3_args: dict):
@@ -270,7 +290,7 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            print("-------------- requesting s3 files for inference --------------")
+            self.locallogger.info("-------------- requesting s3 files for inference --------------")
             results_file = self.get_inference_results_s3(s3_args, stub)
 
         return results_file
@@ -280,7 +300,7 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            print("-----------sending files as http link --------------")
+            self.locallogger.info("-----------sending files as http link --------------")
             results_file = self.get_inference_results_httplink(httplinks, stub)
 
         return results_file
@@ -290,7 +310,7 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            print("------------upload files for inference  --------------")
+            self.locallogger.info("------------upload files for inference  --------------")
             results_file = self.get_inference_results_uploadFiles(files, stub)
 
         return results_file
@@ -300,7 +320,7 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            print("------------upload files for inference  --------------")
+            self.locallogger.info("------------upload files for inference  --------------")
             results_file = self.get_inference_results_shared(files, stub)
 
         return results_file

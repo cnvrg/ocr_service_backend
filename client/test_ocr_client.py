@@ -1,10 +1,13 @@
 import unittest
 import os
+import coloredlogs, logging
 import yaml
 from yaml.loader import SafeLoader
 import json
 import grpc_client_base
 
+clientlogs = logging.getLogger(__name__)
+coloredlogs.install(level=logging.DEBUG, logger=clientlogs)
 
 def read_test_cfg_info(cfg_file: str) -> dict():
 
@@ -33,9 +36,9 @@ class test_ocr_client(unittest.TestCase):
 
         ## save cfg to tester
         # print(f"{type(test_cfg)=}")
-        print(f"{test_cfg=}")
+        clientlogs.debug(f"{test_cfg=}")
         cls.s3_cfg: dict = test_cfg["ocr_client_cfg"]["s3_info"]
-        print(test_cfg["ocr_client_cfg"]["s3_info"])
+        clientlogs.debug(test_cfg["ocr_client_cfg"]["s3_info"])
         cls.s3_client_obj = grpc_client_base.s3_grpc_client(**cls.s3_cfg)
         cls.httplinks = test_cfg["ocr_client_cfg"]["httplinks"]
         cls.files = test_cfg["ocr_client_cfg"]["files"]
@@ -86,4 +89,13 @@ class test_ocr_client(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    clientlogs.setLevel(logging.INFO)
+    
+    logformat = logging.Formatter(fmt="%(asctime)s:%(levelname)s:%(message)s", datefmt="%H:%M:%S")
+    
+    logstream = logging.StreamHandler()
+    logstream.setLevel(logging.INFO)
+    logstream.setFormatter(logformat)
+    clientlogs.addHandler(logstream)
+    
     unittest.main()
