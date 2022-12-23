@@ -17,6 +17,7 @@ RUN pip install --upgrade pip \
         && pip install requests \
         && pip install grpcio \
         && pip install grpcio-tools \
+        && pip install coloredlogs \
         && pip uninstall -y pillow \
         && pip install --no-cache-dir pillow \
         && pip install "numpy>=1.16.0,<2.0.0" \

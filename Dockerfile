@@ -14,7 +14,8 @@ RUN pip install numpy \
         && pip install "fastapi[all]" \
         && pip install requests \
         && pip install grpcio \
-        && pip install grpcio-tools
+        && pip install grpcio-tools \
+        && pip install coloredlogs
 
 RUN mkdir /cnvrg
 RUN mkdir /root/ocr_service_backend
