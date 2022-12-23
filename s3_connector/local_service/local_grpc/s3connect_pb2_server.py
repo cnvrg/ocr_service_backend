@@ -1,7 +1,7 @@
 """The Python implementation of the gRPC route guide server."""
 
 from concurrent import futures
-import logging
+import logging, coloredlogs
 from typing import List
 from signal import signal, SIGTERM, SIGINT
 
@@ -15,6 +15,12 @@ import grpc
 import s3connect_pb2
 import s3connect_pb2_grpc
 
+s3logs = logging.getLogger(__name__)
+coloredlogs.install(level=logging.DEBUG, logger=s3logs)
+
+def get_logfile_path(logfile_name:str) -> str:
+    logdir: str = os.path.dirname(os.path.abspath(__file__))
+    return  f"{logdir}/../logs/{logfile_name}"
 
 def run_cmd(cmd: str, run_env: dict):
     """cmd runner"""
@@ -27,13 +33,13 @@ def run_cmd(cmd: str, run_env: dict):
         return output
 
     except subprocess.CalledProcessError as e:
-        print(f" returned error: {e.returncode}, output: {e.output.decode()}")
+        s3logs.error(f" returned error: {e.returncode}, output: {e.output.decode()}")
         return e.returncode
 
 
 def get_results(req: s3connect_pb2.S3request) -> List[str]:
     """build the s3 download cmd and execute it"""
-    print(f"{req=}")
+    s3logs.debug(f"{req=}")
     os_env = os.environ.copy()
     run_env = {
         "aws_access_key_id": req.env.aws_access_key_id,
@@ -75,7 +81,7 @@ class s3connectServicer(s3connect_pb2_grpc.s3connectServicer):
     def DownloadFilesToLocation(self, request, context):
         """Handle rpc download files to shared location"""
         files = get_results(request)
-        print("DownloadFilesToLocation")
+        s3logs.info("DownloadFilesToLocation")
         ret_response = s3connect_pb2.S3response()
         ret_response.request.CopyFrom(request.args)
         if files == []:
@@ -91,12 +97,12 @@ class s3connectServicer(s3connect_pb2_grpc.s3connectServicer):
         """Handle rpc to stream downloaded files back to client"""
         segment_size = 1024
         files = get_results(request)
-        print("GetFiles")
+        s3logs.info("GetFiles")
 
         for file in files:
             file_name_no_path = file.split("/")[-1]
             # send file name first
-            print(f"{file=}, {file_name_no_path=}")
+            s3logs.info(f"{file=}, {file_name_no_path=}")
             yield s3connect_pb2.S3FilesResponse(filename=file_name_no_path)
             # then stream the file it self
             with open(file, mode="rb") as fs:
@@ -122,12 +128,13 @@ def serve():
     s3connect_pb2_grpc.add_s3connectServicer_to_server(s3connectServicer(), server)
     server.add_insecure_port(f"{local_server_address}:{local_server_port}")
     server.start()
-
+    s3logs.info("s3 grpc server started")
+    
     def sigterm_handler(*_):
-        print("received shutdown signal, Waiting 30 second to clear jobs")
+        s3logs.info("received shutdown signal, Waiting 30 second to clear jobs")
         all_rpc_done_event = server.stop(30)
         all_rpc_done_event.wait(30)
-        print("completed gracefull shut down")
+        s3logs.info("completed gracefull shut down")
 
     signal(SIGTERM, sigterm_handler)
     signal(SIGINT, sigterm_handler)
@@ -136,5 +143,19 @@ def serve():
 
 
 if __name__ == "__main__":
-    logging.basicConfig()
+    s3logs.setLevel(logging.DEBUG)
+    
+    logfile = logging.FileHandler(filename=get_logfile_path("s3_service.log"))
+    logfile.setLevel(logging.DEBUG)
+    logformat = logging.Formatter(fmt="%(asctime)s:%(levelname)s:%(message)s", datefmt="%H:%M:%S")
+    logfile.setFormatter(logformat)
+    s3logs.addHandler(logfile)
+    
+    logstream = logging.StreamHandler()
+    #logstream.setLevel(logging.INFO)
+    logstream.setLevel(logging.DEBUG)
+    logstream.setFormatter(logformat)
+    s3logs.addHandler(logstream)
+    
+    #logging.basicConfig()
     serve()

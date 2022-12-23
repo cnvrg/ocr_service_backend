@@ -1,0 +1,148 @@
+22:53:24:INFO:s3 grpc server started
+22:54:45:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+env {
+  aws_access_key_id: "some__ID__ID"
+  aws_secret_access_key: "some_secret_secret"
+}
+
+22:54:45:INFO:GetFiles
+22:54:45:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+22:54:45:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:01:19:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:01:19:INFO:GetFiles
+00:01:19:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:01:19:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:03:31:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:03:31:INFO:GetFiles
+00:03:31:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:03:31:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:17:51:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:17:51:INFO:GetFiles
+00:17:51:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:17:51:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:23:54:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:23:54:INFO:GetFiles
+00:23:54:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:23:54:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:25:32:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:25:32:INFO:GetFiles
+00:25:32:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:25:32:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:26:52:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:26:52:INFO:GetFiles
+00:26:52:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:26:52:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:27:04:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:27:04:INFO:GetFiles
+00:27:04:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:27:04:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:27:23:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:27:23:INFO:GetFiles
+00:27:23:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:27:23:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:27:52:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:27:52:INFO:GetFiles
+00:27:52:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:27:52:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:28:04:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:28:04:INFO:GetFiles
+00:28:04:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:28:04:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:30:47:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:30:47:INFO:GetFiles
+00:30:47:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:30:47:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
+00:31:25:DEBUG:req=args {
+  endpoint: "http://s3.amazonaws.com"
+  command: "download"
+  bucketname: "libhub-readme"
+  prefix: "pdf_extraction_data/"
+  localdir: "/cnvrg"
+}
+
+00:31:25:INFO:GetFiles
+00:31:25:INFO:file='/cnvrg/Data+science.pdf', file_name_no_path='Data+science.pdf'
+00:31:25:INFO:file='/cnvrg/economics.pdf', file_name_no_path='economics.pdf'
