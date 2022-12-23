@@ -1,6 +1,6 @@
 """ ocrservice server functiona """
 from concurrent import futures
-import logging
+import coloredlogs, logging
 import os
 from datetime import datetime
 import urllib.request
@@ -17,6 +17,12 @@ import ocrservice_pb2_grpc
 import s3connect_pb2
 import s3connect_pb2_grpc
 
+ocrlogs = logging.getLogger(__name__)
+coloredlogs.install(level=logging.DEBUG, logger=ocrlogs)
+
+def get_logfile_path(logfile_name:str) -> str:
+    logdir: str = os.path.dirname(os.path.abspath(__file__))
+    return  f"{logdir}/../logs/{logfile_name}"
 
 def makeLocalWorkingDir(prefix="ocrResults", wdir="/tmp") -> str:
     """local helper function for makring local directory"""
@@ -38,7 +44,8 @@ def get_s3files(s3req: ocrservice_pb2.S3request) -> Tuple[int, List[str]]:
         local_server_port = "50051"
 
     if s3_service_address is None:
-        print("Need S3_SERVICE_ADDRESS")
+        #print("Need S3_SERVICE_ADDRESS")
+        ocrlogs.error("Need S3_SERVICE_ADDRESS")
         """ raise exception / return error """ 
 
     with grpc.insecure_channel(f"{s3_service_address}:{local_server_port}") as channel:
@@ -54,7 +61,8 @@ def get_s3files(s3req: ocrservice_pb2.S3request) -> Tuple[int, List[str]]:
                 with open(filename, "ab") as rf:
                     rf.write(res.data)
 
-    print(f"downloaded S3 files: {files}")
+    #print(f"downloaded S3 files: {files}")
+    ocrlogs.info(f"downloaded S3 files: {files}")
     status: int = 0
     # time.sleep(2)
     return status, files
@@ -76,7 +84,8 @@ def get_url_file(urls: List[str]) -> Tuple[int, List[str]]:
         # cleanup url junk: pdfreader get confused by them!
         filename = "".join(x for x in filename_url if x == "." or x.isalnum())
         filename = f"{download_dir}/{filename}"
-        print(f"{filename=} {filename_url}")
+        #print(f"{filename=} {filename_url}")
+        loggin.info(f"{filename=} {filename_url}")
         with open(filename, "wb") as file:
             for seg in results.iter_content(chunk_size=1024):
                 if seg:
@@ -95,7 +104,8 @@ def get_inference_predictions(data: dict):
     prediction = predict(data)
     json_pred = json.dumps(prediction, indent=4)
 
-    print(f"{json_pred=}")
+    #print(f"{json_pred=}")
+    ocrlogs.debug(f"{json_pred=}")
     results_dir = makeLocalWorkingDir(prefix="ocrResults", wdir="/tmp")
     results_file = f"{results_dir}/results.json"
 
@@ -113,8 +123,9 @@ def process_inference_equest(
     """demux function which download the files from various location
     and call the main interface function get_inference_prediction
     """
-    print(f"{req=}")
-
+    #print(f"{req=}")
+    ocrlogs.debug(f"{req=}")
+    
     if req.HasField("s3Info"):
         __status, files = get_s3files(req.s3Info)
     elif req.httplink != []:
@@ -122,7 +133,8 @@ def process_inference_equest(
     elif req.filename != []:
         __status, files = 0, req.filename
     else:
-        print(" no file information is set in the request ")
+        #print(" no file information is set in the request ")
+        ocrlogs.error(" no file information is set in the request ")
 
     data = dict(pdf=files)
 
@@ -145,7 +157,9 @@ def process_inference_fileUpload(request_iterator):
         with open(filename, "wb") as rf:
             rf.write(data)
 
-    print(f"received uploaded {files=}")
+    #print(f"received uploaded {files=}")
+    ocrlogs.info(f"received uploaded {files=}")
+    
     data = dict(pdf=files)
 
     return get_inference_predictions(data)
@@ -156,14 +170,16 @@ class ocrserviceServicer(ocrservice_pb2_grpc.ocrserviceServicer):
         """Handle ProcessInfa rpc"""
         __error, filename = process_inference_equest(request)
 
-        print(f" results file = {filename}")
+        #print(f" results file = {filename}")
+        ocrlogs.info(f" results file = {filename}")
         block_size: int = 1024
 
         with open(filename, "rb") as results_file:
             while True:
                 segment = results_file.read(block_size)
                 if segment:
-                    print("sent segment")
+                    #print("sent segment")
+                    ocrlogs.debug("sent segment")
                     entry_response = ocrservice_pb2.OCRresponse(
                         status=ocrservice_pb2.OCRretunStatus.sucess, data=segment
                     )
@@ -175,14 +191,14 @@ class ocrserviceServicer(ocrservice_pb2_grpc.ocrserviceServicer):
         """Handle ProcessUpload rpc"""
         __error, filename = process_inference_fileUpload(request_iterator)
 
-        print(f" results file = {filename}")
+        ocrlogs.info(f" results file = {filename}")
         block_size: int = 1024
 
         with open(filename, "rb") as results_file:
             while True:
                 segment = results_file.read(block_size)
                 if segment:
-                    print("sent segment")
+                    ocrlogs.debug("sent segment")
                     entry_response = ocrservice_pb2.OCRresponse(
                         status=ocrservice_pb2.OCRretunStatus.sucess, data=segment
                     )
@@ -201,12 +217,14 @@ def serve():
     ocrservice_pb2_grpc.add_ocrserviceServicer_to_server(ocrserviceServicer(), server)
     server.add_insecure_port(f"{local_server_address}:{local_server_port}")
     server.start()
-
+    ocrlogs.info("ocr grpc server started")
     def sigterm_handler(*_):
-        print("received shutdown signal, Waiting 30 second to clear jobs")
+        #print("received shutdown signal, Waiting 30 second to clear jobs")
+        ocrlogs.info("received shutdown signal, Waiting 30 second to clear jobs")
         all_rpc_done_event = server.stop(30)
         all_rpc_done_event.wait(30)
-        print("completed gracefull shut down")
+        #print("completed gracefull shut down")
+        ocrlogs.info("completed gracefull shut down")
 
     signal(SIGTERM, sigterm_handler)
     signal(SIGINT, sigterm_handler)
@@ -214,5 +232,20 @@ def serve():
 
 
 if __name__ == "__main__":
-    logging.basicConfig()
+    ocrlogs.setLevel(logging.DEBUG)
+    
+    logfile = logging.FileHandler(filename=get_logfile_path("ocr_service.log"))
+    logfile.setLevel(logging.DEBUG)
+    logformat = logging.Formatter(fmt="%(asctime)s:%(levelname)s:%(message)s", datefmt="%H:%M:%S")
+    logfile.setFormatter(logformat)
+    ocrlogs.addHandler(logfile)
+    
+    logstream = logging.StreamHandler()
+    #logstream.setLevel(logging.INFO)
+    logstream.setLevel(logging.DEBUG)
+    logstream.setFormatter(logformat)
+    ocrlogs.addHandler(logstream)
+    
+    
+    #logging.basicConfig(filename=get_logfile_path("ocr_service.log"),level=logging.DEBUG)
     serve()
