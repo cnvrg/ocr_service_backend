@@ -10,7 +10,7 @@ source ${SERVICE_ENV_SCRIPT}
 S3_SERVER="${HOME_ROOT}/local_service/local_grpc/s3connect_pb2_server.py"
 
 ## 
-# Start ocr_service 
+# Start S3_service 
 #
 
 python3 ${S3_SERVER}
