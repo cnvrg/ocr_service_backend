@@ -85,7 +85,7 @@ def get_url_file(urls: List[str]) -> Tuple[int, List[str]]:
         filename = "".join(x for x in filename_url if x == "." or x.isalnum())
         filename = f"{download_dir}/{filename}"
         #print(f"{filename=} {filename_url}")
-        loggin.info(f"{filename=} {filename_url}")
+        ocrlogs.info(f"{filename=} {filename_url}")
         with open(filename, "wb") as file:
             for seg in results.iter_content(chunk_size=1024):
                 if seg:
