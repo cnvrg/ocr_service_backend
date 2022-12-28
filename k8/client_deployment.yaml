@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: client-mvp-set1
-        image: lamatriz/wlpu:ubuntu_20.04_MVP_Set1
+        image: lamatriz/wlpu:ubuntu_20.04_MVP_client
         command: ["sleep"]
         args: ["1h"]
 

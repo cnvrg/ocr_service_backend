@@ -1,10 +1,10 @@
 #!/usr/bin/bash
 
-Container_Name=${1:-${USER}'_client_service_mvp_set1'}
-Container_Image=${2:-"lamatriz/wlpu:ubuntu_20.04_MVP_Set1"}
+Container_Name=${1:-${USER}}
+Container_Image=${2:-"lamatriz/wlpu:ubuntu_20.04_MVP_s3"}
 Constainer_cmd=${3:-"bash"}
 
 
 echo "starting ${Container_Name} with image: ${Container_Image} and results dir ${Constainer_results} "
 docker run --security-opt seccomp=unconfined  -id --name ${Container_Name}  -expose=50051 ${Container_Image} ${Constainer_cmd}
-#docker exec -it ${Container_Name} bash
+docker exec -w /root/ocr_service_backend -it ${Container_Name} bash
