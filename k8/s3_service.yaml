@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: s3-service
+  name: s3
 spec:
   type: NodePort
   selector:
@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: s3-mvp-set1
-        image: lamatriz/wlpu:ubuntu_20.04_MVP_Set1
+        image: lamatriz/wlpu:ubuntu_20.04_MVP_s3
         command: ["/usr/bin/bash"]
         args: ["-c", ". /root/ocr_service_backend/s3_connector/local_service/setup_s3_requirements.sh; bash /root/ocr_service_backend/s3_connector/local_service/start_service.sh"]
 
