@@ -1,0 +1,33 @@
+# ocr-app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ocr.fullname" . }}
+  labels:
+    {{- include "ocr.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ocr.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ocr.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret }}      
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bash", "-c"]
+          args:
+          - |  
+            /root/ocr_service_backend/text-extraction/local_service/start_service.sh
+          ports:
+            - name: http
+              containerPort:  {{ .Values.service.targetPort }}
+              protocol: TCP

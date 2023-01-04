@@ -1,0 +1,31 @@
+# s3-app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "s3.fullname" . }}
+  labels:
+    {{- include "s3.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "s3.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "s3.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret }}      
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bash", "-c"]
+          args: [". /root/ocr_service_backend/s3_connector/local_service/setup_s3_requirements.sh; bash /root/ocr_service_backend/s3_connector/local_service/start_service.sh"]            
+          ports:
+            - name: http
+              containerPort:  {{ .Values.service.targetPort }}
+              protocol: TCP
