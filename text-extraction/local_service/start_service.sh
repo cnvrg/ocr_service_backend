@@ -8,11 +8,16 @@ SERVICE_ENV_SCRIPT="${SCRIPT_DIRECTORY}/setup_service_env.sh"
 source ${SERVICE_ENV_SCRIPT}
 
 echo ${PYTHONPATH}
-OCR_SERVER="local_service/local_grpc/ocrservice_pb2_server.py"
+
+pushd ${HOME_ROOT}
+echo uvicorn local_service.app.main:app --host 0.0.0.0 --port  ${LOCAL_SERVER_PORT}
+uvicorn local_service.app.main:app --host 0.0.0.0 --port  ${LOCAL_SERVER_PORT}
+#OCR_SERVER="local_service/local_grpc/ocrservice_pb2_server.py"
+#OCR_SERVER="local_service/local_grpc/ocrservice_pb2_server.py"
 
 
 ## 
 # Start ocr_service 
 #
-pushd ${HOME_ROOT}
-python3 ${OCR_SERVER}
+#
+#python3 ${OCR_SERVER}

@@ -4,7 +4,7 @@ import coloredlogs, logging
 import yaml
 from yaml.loader import SafeLoader
 import json
-import grpc_client_base
+import fastapi_client_base
 
 clientlogs = logging.getLogger(__name__)
 coloredlogs.install(level=logging.DEBUG, logger=clientlogs)
@@ -39,7 +39,6 @@ class test_ocr_client(unittest.TestCase):
         clientlogs.debug(f"{test_cfg=}")
         cls.s3_cfg: dict = test_cfg["ocr_client_cfg"]["s3_info"]
         clientlogs.debug(test_cfg["ocr_client_cfg"]["s3_info"])
-        cls.s3_client_obj = grpc_client_base.s3_grpc_client(**cls.s3_cfg)
         cls.httplinks = test_cfg["ocr_client_cfg"]["httplinks"]
         cls.files = test_cfg["ocr_client_cfg"]["files"]
         cls.service_network: dict = test_cfg["ocr_client_cfg"]["service_network"]
@@ -48,7 +47,8 @@ class test_ocr_client(unittest.TestCase):
             "OCR_SERVICE_ADDRESS"
         )
 
-        cls.ocr_client_obj = grpc_client_base.ocr_grpc_client(**cls.service_network)
+        cls.ocr_client_obj = fastapi_client_base.ocr_fastapi_client(**cls.service_network)
+        
 
     @unittest.skip(" running one test at time ")
     def test_ocr_s3_processing(self):

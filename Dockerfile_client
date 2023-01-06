@@ -20,4 +20,4 @@ RUN pip install numpy \
 RUN mkdir /root/ocr_service_backend
 ADD  client  /root/ocr_service_backend/client
 
-WORKDIR /root/ocr_service_backend
+WORKDIR /root/ocr_service_backend/client
