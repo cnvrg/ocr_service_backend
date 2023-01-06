@@ -9,9 +9,13 @@ spec:
     imagePullPolicy: Always
     command: ["bash", "-c"]
     args:
-    - |      
+    - |   
+      sleep 30s
+      echo cd /root/ocr_service_backend/client && source local_service/setup_service_env.sh && python3 test_ocr_fastapi_client.py
+      cd /root/ocr_service_backend/client && source local_service/setup_service_env.sh && python3 test_ocr_fastapi_client.py
       sleep 1h
     ports:
     - containerPort:  {{ .Values.service.targetPort }}
   imagePullSecrets:
   - name: {{ .Values.imagePullSecret }}
+  terminationGracePeriodSeconds: {{ .Values.gracePeriod }}

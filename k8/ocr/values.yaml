@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: lamatriz
   name: wlpu
-  tag: ubuntu_20.04_ocr_MVP_Set1
+  tag: ubuntu_20.04_ocr_MVP_Set1_v2
   pullPolicy: Always
 
 imagePullSecret: regcred 
@@ -16,7 +16,7 @@ testDemo:
   image:
     repository: lamatriz
     name: wlpu
-    tag: ubuntu_20.04_MVP_client
+    tag: ubuntu_20.04_MVP_client_v2
     pullPolicy: Always
 
 service:
@@ -35,6 +35,7 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
 
+gracePeriod: 5
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
