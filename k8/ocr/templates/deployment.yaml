@@ -25,9 +25,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["bash", "-c"]
           args:
-          - |  
+          - |
             /root/ocr_service_backend/text-extraction/local_service/start_service.sh
           ports:
             - name: http
               containerPort:  {{ .Values.service.targetPort }}
-              protocol: TCP
+              protocol: TCP              
+      terminationGracePeriodSeconds: {{ .Values.gracePeriod }}

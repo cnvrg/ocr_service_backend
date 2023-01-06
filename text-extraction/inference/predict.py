@@ -85,6 +85,12 @@ def predict(data):
             print("running ocr for page numbers: ", todoocr)
             print("page index starts at 0")
             output = _process_file(filename, todoocr, output)
-        prediction[count] = output
+
+        # todo - make it default or keep this way
+        # transform output from dictionary to list
+        output_list = []
+        for count, value in  output.items():
+            output_list.append(value)
+        prediction[filepdf] = output_list
 
     return prediction

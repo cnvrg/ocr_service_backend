@@ -45,3 +45,7 @@ ADD  s3_connector     /root/ocr_service_backend/s3_connector
 ADD  text-extraction  /root/ocr_service_backend/text-extraction
 ADD  client  /root/ocr_service_backend/client
 COPY data/*  /cnvrg/
+
+WORKDIR /root/ocr_service_backend/text-extraction
+
+EXPOSE 50051
