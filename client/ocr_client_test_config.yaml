@@ -15,6 +15,7 @@ ocr_client_cfg:
     - "/cnvrg/economics.pdf"
   service_network:
     remote_service_address: "172.17.0.3"
-    remote_service_port:  "50051"
+    remote_service_port:  "8081"
+    #remote_service_port:  "50051"
 
 
