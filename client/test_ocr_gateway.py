@@ -54,14 +54,41 @@ class test_ocr_gateway_client(unittest.TestCase):
         cls.ocr_client_obj = grpc_client_base.ocr_grpc_client(**cls.service_network)
         """
 
-    # @unittest.skip(" running one test at time ")
-    def test_ocr_gateway_sendfile(self):
+    @unittest.skip(" running one test at time ")
+    def test_ocr_REST_sendfile_get_json(self):
         """regest processing pdf file"""
 
-        myurl = "https://172.17.0.3:8081/ocr/extract"
-        files = {"data": open("/cnvrg/economics.pdf", "rb")}
-        getdata = requests.post(myurl, files=files)
+        myurl = "http://172.17.0.3:40051/ocr/extract"
+        # files = {"data": ("economics.pdf", open("/cnvrg/economics.pdf", "rb"))}
+        files = {"file": (open("/cnvrg/economics.pdf", "rb"))}
+        # "filename": "economics.pdf",
+        # pyload = json.dumps(files)
+        # with open("/cnvrg/economics.pdf", "rb") as pf:
+        #    getdata = requests.post(
+        #        myurl,
+        #        data={"filename": "economics.pdf", "data": pf.read()},
+        #        verify=False,
+        #    )
+        getdata = requests.post(myurl, files=files, stream=True)
         print(getdata.text)
+
+    def test_ocr_REST_sendfile_get_file(self):
+        """regest processing pdf file"""
+
+        myurl = "http://172.17.0.3:40051/ocr/extract/file"
+        # files = {"data": ("economics.pdf", open("/cnvrg/economics.pdf", "rb"))}
+        files = {"file": (open("/cnvrg/economics.pdf", "rb"))}
+        # "filename": "economics.pdf",
+        # pyload = json.dumps(files)
+        # with open("/cnvrg/economics.pdf", "rb") as pf:
+        #    getdata = requests.post(
+        #        myurl,
+        #        data={"filename": "economics.pdf", "data": pf.read()},
+        #        verify=False,
+        #    )
+        getdata = requests.post(myurl, files=files, stream=True)
+
+        print(f"{getdata.text=}")
 
 
 if __name__ == "__main__":
