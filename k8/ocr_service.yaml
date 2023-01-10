@@ -9,6 +9,8 @@ spec:
   ports:
     - port: 50051
       targetPort: 50051
+    - port: 40051
+      targetPort: 40051
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -26,12 +28,12 @@ spec:
     spec:
       containers:
       - name: ocr-mvp-set1
-        image: lamatriz/wlpu:ubuntu_20.04_ocr_MVP_Set1
-        #image: lamatriz/wlpu:poc1_crohn_app
+        image: lamatriz/wlpu:ubuntu_20.04_ocr_MVP_Set1_v3
         command: ["/usr/bin/bash"]
         args: ["-c", "bash /root/ocr_service_backend/text-extraction/local_service/start_service.sh"]
         imagePullPolicy: Always
         ports:
         - containerPort: 50051
+        - containerPort: 40051
       imagePullSecrets:
       - name: regcred

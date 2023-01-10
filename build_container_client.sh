@@ -1,4 +1,4 @@
-local_tag=${2:-"ubuntu_20.04_MVP_client_v2"}
+local_tag=${2:-"ubuntu_20.04_MVP_client_v3"}
 dockerfile=${1:-"Dockerfile_client"}
 container_image_local="lamatriz/wlpu:${local_tag}"
 
