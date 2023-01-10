@@ -1,0 +1,12 @@
+17:20:07:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-01-10-2023-17-20-07/Data+science.pdf'
+17:20:07:DEBUG:Saving economics.pdf to localFile='/tmp/upload-01-10-2023-17-20-07/economics.pdf'
+17:20:07:INFO:['/tmp/upload-01-10-2023-17-20-07/Data+science.pdf', '/tmp/upload-01-10-2023-17-20-07/economics.pdf']
+17:20:10:DEBUG:/tmp/ocrResults-01-10-2023-17-20-10/text_results.json
+18:38:53:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-01-10-2023-18-38-53/Data+science.pdf'
+18:38:53:DEBUG:Saving economics.pdf to localFile='/tmp/upload-01-10-2023-18-38-53/economics.pdf'
+18:38:53:INFO:['/tmp/upload-01-10-2023-18-38-53/Data+science.pdf', '/tmp/upload-01-10-2023-18-38-53/economics.pdf']
+18:38:57:DEBUG:/tmp/ocrResults-01-10-2023-18-38-57/text_results.json
+18:39:39:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-01-10-2023-18-39-39/Data+science.pdf'
+18:39:39:DEBUG:Saving economics.pdf to localFile='/tmp/upload-01-10-2023-18-39-39/economics.pdf'
+18:39:39:INFO:['/tmp/upload-01-10-2023-18-39-39/Data+science.pdf', '/tmp/upload-01-10-2023-18-39-39/economics.pdf']
+18:39:44:DEBUG:/tmp/ocrResults-01-10-2023-18-39-44/text_results.json

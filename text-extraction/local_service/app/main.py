@@ -1,6 +1,6 @@
 """ Define the endpoint for this service """
 from fastapi import FastAPI
-from local_service.app.api import inference
+from local_service.app.api import inference, fileupload
 description = """
 Text-extraction from pdf files
 """
@@ -20,7 +20,8 @@ app = FastAPI(
         "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
     },
 )
-app.include_router(inference.router)
+#app.include_router(inference.router)
+app.include_router(fileupload.router)
 
 @app.get("/")
 async def home():

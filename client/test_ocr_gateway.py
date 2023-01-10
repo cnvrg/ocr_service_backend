@@ -70,6 +70,7 @@ class test_ocr_gateway_client(unittest.TestCase):
         #        verify=False,
         #    )
         getdata = requests.post(myurl, files=files, stream=True)
+
         print(getdata.text)
 
     def test_ocr_REST_sendfile_get_file(self):

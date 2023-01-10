@@ -6,6 +6,7 @@ export LOCAL_GRPC_DIR="${HOME_ROOT}/local_service/local_grpc"
 export LOCAL_FASTAPI_DIR=$"${HOME_ROOT}/local_service/app"
 export PYTHONPATH=${INFERENCE_DIR}:${HOME_ROOT}
 export LOCAL_SERVER_PORT=50051
+export LOCAL_REST_SERVER_PORT=40051
 
 export OCR_SERVICE_ADDRESS=${OCR_SERVICE_HOST:-"172.17.0.3"}
 
