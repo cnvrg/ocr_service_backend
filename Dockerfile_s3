@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND="noninteractive"  TZ=Etc/UTC
-RUN apt-get update && apt-get install -y tzdata bash-completion python3-pip openssh-server vim git iputils-ping net-tools golang\
+RUN apt-get update && apt-get install -y tzdata bash-completion python3-pip openssh-server vim git iputils-ping net-tools \
         && rm -rf /var/lib/apt/lists/* 
 
 

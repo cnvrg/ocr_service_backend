@@ -58,7 +58,7 @@ class test_ocr_gateway_client(unittest.TestCase):
     def test_ocr_gateway_sendfile(self):
         """regest processing pdf file"""
 
-        myurl = "https://172.17.0.3:8081/ocr/extract"
+        myurl = "http://127.0.0.1:8081/ocr/extract"
         files = {"data": open("/cnvrg/economics.pdf", "rb")}
         getdata = requests.post(myurl, files=files)
         print(getdata.text)
