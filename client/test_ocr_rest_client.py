@@ -34,6 +34,7 @@ class test_ocr_client(unittest.TestCase):
         ## Read configurations
         test_cfg = read_test_cfg_info(cfg_file)
         cls.validation_results = read_json_file(json_file_name=json_validation_file)
+        print(type(cls.validation_results))
         # cls.validation_results_as_dict = json.loads(cls.validation_results)
 
         ## save cfg to tester
@@ -60,11 +61,13 @@ class test_ocr_client(unittest.TestCase):
 
         clientlogs.debug(results)
 
-        # actual_results = read_json_file(actual_results_file)
-
-        # results_as_dict = json.loads(results)
-
-        # self.assertEqual(self.validation_results[filename], results[filename])
+        # Validation steps
+        results_as_dict = json.loads(results)
+        filename_stripped = filename.split("/")[-1]
+        self.assertEqual(
+            self.validation_results[filename_stripped],
+            results_as_dict[filename_stripped],
+        )
 
     @unittest.skip(" running one test at time ")
     def test_text_extraction_uploadfile_file(self):
@@ -74,9 +77,14 @@ class test_ocr_client(unittest.TestCase):
         results = self.ocr_client_obj.get_infrance_fileUpload(filename)
 
         clientlogs.debug(results)
-        # actual_results = read_json_file(actual_results_file)
 
-        # self.assertEqual(self.validation_results, actual_results)
+        # Validation steps
+        actual_results = read_json_file(results)
+        filename_stripped = filename.split("/")[-1]
+        self.assertEqual(
+            self.validation_results[filename_stripped],
+            actual_results[filename_stripped],
+        )
 
     # @unittest.skip(" running one test at time ")
     def test_text_extraction_manyFilesUpload(self):
@@ -86,6 +94,8 @@ class test_ocr_client(unittest.TestCase):
         results = self.ocr_client_obj.get_infrance_manyFilesUpload(self.files)
 
         clientlogs.debug(results)
+
+        # Validation steps
         actual_results = read_json_file(results)
 
         self.assertEqual(self.validation_results, actual_results)
