@@ -9,5 +9,9 @@ Container_image_local="lamatriz/wlpu:${local_tag}"
 
 #tar -xf go1.19.5.linux-amd64.tar.gz
 
+# temp workarround for wget issue 
+[ ! -d "go" ] && echo "making dir go" && mkdir go
+
+
 docker build -t ${Container_image_local}  -f ${Dockerfile_name} .
 docker push ${Container_image_local}
