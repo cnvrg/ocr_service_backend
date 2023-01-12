@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: lamatriz
   name: wlpu
-  tag: ubuntu_20.04_ocr_MVP_Set1_v2
+  tag: ubuntu_20.04_ocr_MVP_Set1_v3
   pullPolicy: Always
 
 imagePullSecret: regcred 
@@ -16,13 +16,17 @@ testDemo:
   image:
     repository: lamatriz
     name: wlpu
-    tag: ubuntu_20.04_MVP_client_v2
+    tag: ubuntu_20.04_MVP_client_v3
     pullPolicy: Always
 
 service:
   type: NodePort
+  name: s-fastapi
   port: 50051
   targetPort: 50051
+  name2: s-grcp
+  port2: 40051
+  targetPort2: 40051
 
 ingress:
   enabled: false
