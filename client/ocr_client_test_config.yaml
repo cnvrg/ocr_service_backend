@@ -16,5 +16,12 @@ ocr_client_cfg:
   service_network:
     remote_service_address: "172.17.0.3"
     remote_service_port:  "50051"
+  service_network_rest:
+    remote_service_address: "172.17.0.3"
+    remote_service_port:  "40051"
+  service_network_gateway:
+    remote_service_address: "172.17.0.3"
+    remote_service_port:  "8081"
+
 
 

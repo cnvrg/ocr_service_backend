@@ -91,6 +91,7 @@ def predict(data):
         output_list = []
         for count, value in  output.items():
             output_list.append(value)
-        prediction[filepdf] = output_list
+        
+        prediction[filepdf.split('/')[-1]] = output_list
 
     return prediction

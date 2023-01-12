@@ -1,0 +1,8 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/root/ocr_service_backend/text-extraction/local_service/start_grpc_service.sh
+
+[Install]
+WantedBy=default.target

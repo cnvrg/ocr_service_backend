@@ -10,6 +10,10 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      name: http
+      name: {{ .Values.service.name }}
+    - port: {{ .Values.service.port2 }}
+      targetPort: {{ .Values.service.targetPort2 }}
+      protocol: TCP
+      name: {{ .Values.service.name2 }}
   selector:
     {{- include "ocr.selectorLabels" . | nindent 4 }}

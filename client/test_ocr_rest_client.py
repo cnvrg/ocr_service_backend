@@ -4,7 +4,7 @@ import coloredlogs, logging
 import yaml
 from yaml.loader import SafeLoader
 import json
-import grpc_client_base
+import rest_client_base
 
 clientlogs = logging.getLogger(__name__)
 coloredlogs.install(level=logging.DEBUG, logger=clientlogs)
@@ -34,57 +34,69 @@ class test_ocr_client(unittest.TestCase):
         ## Read configurations
         test_cfg = read_test_cfg_info(cfg_file)
         cls.validation_results = read_json_file(json_file_name=json_validation_file)
+        print(type(cls.validation_results))
+        # cls.validation_results_as_dict = json.loads(cls.validation_results)
 
         ## save cfg to tester
         # print(f"{type(test_cfg)=}")
         clientlogs.debug(f"{test_cfg=}")
         cls.s3_cfg: dict = test_cfg["ocr_client_cfg"]["s3_info"]
         clientlogs.debug(test_cfg["ocr_client_cfg"]["s3_info"])
-        cls.s3_client_obj = grpc_client_base.s3_grpc_client(**cls.s3_cfg)
         cls.httplinks = test_cfg["ocr_client_cfg"]["httplinks"]
         cls.files = test_cfg["ocr_client_cfg"]["files"]
-        cls.service_network: dict = test_cfg["ocr_client_cfg"]["service_network"]
+        cls.service_network: dict = test_cfg["ocr_client_cfg"]["service_network_rest"]
 
         cls.service_network["remote_service_address"] = os.environ.get(
             "OCR_SERVICE_ADDRESS"
         )
 
-        cls.ocr_client_obj = grpc_client_base.ocr_grpc_client(**cls.service_network)
+        cls.ocr_client_obj = rest_client_base.OcrRestClient(**cls.service_network)
 
     @unittest.skip(" running one test at time ")
-    def test_ocr_s3_processing(self):
-        """request OCR service to download S3 pdf and process them"""
-        actual_results_file = self.ocr_client_obj.process_S3_files(self.s3_cfg)
-
-        actual_results = read_json_file(actual_results_file)
-
-        self.assertEqual(self.validation_results, actual_results)
-
-    @unittest.skip(" running one test at time ")
-    def test_ocr_httplinks_processing(self):
-        """request OCR service to download puplic pdf from httplink and process them"""
-        actual_results_file = self.ocr_client_obj.process_http_files(self.httplinks)
-
-        actual_results = read_json_file(actual_results_file)
-
-        self.assertEqual(self.validation_results, actual_results)
-
-    @unittest.skip(" running one test at time ")
-    def test_ocr_shared_files_processing(self):
+    def test_text_extraction_uploadfile_json(self):
         """Request OCR service to process files located in shared file system"""
+        filename = self.files[0]
+        clientlogs.info(f"uploading {filename}")
+        results = self.ocr_client_obj.get_infrance_fileUpload_jsonResults(filename)
 
-        actual_results_file = self.ocr_client_obj.process_shared_files(self.files)
+        clientlogs.debug(results)
 
-        actual_results = read_json_file(actual_results_file)
+        # Validation steps
+        results_as_dict = json.loads(results)
+        filename_stripped = filename.split("/")[-1]
+        self.assertEqual(
+            self.validation_results[filename_stripped],
+            results_as_dict[filename_stripped],
+        )
 
-        self.assertEqual(self.validation_results, actual_results)
+    @unittest.skip(" running one test at time ")
+    def test_text_extraction_uploadfile_file(self):
+        """bidirectional stream: upload pdf files to OCR service for processing"""
+        filename = self.files[1]
+        clientlogs.info(f"uploading {filename}")
+        results = self.ocr_client_obj.get_infrance_fileUpload(filename)
+
+        clientlogs.debug(results)
+
+        # Validation steps
+        actual_results = read_json_file(results)
+        filename_stripped = filename.split("/")[-1]
+        self.assertEqual(
+            self.validation_results[filename_stripped],
+            actual_results[filename_stripped],
+        )
 
     # @unittest.skip(" running one test at time ")
-    def test_uploaded_files(self):
-        """bidirectional stream: upload pdf files to OCR service for processing"""
-        actual_results_file = self.ocr_client_obj.process_uploaded_files(self.files)
+    def test_text_extraction_manyFilesUpload(self):
+        """bidirectional stream: upload many pdf files to OCR service for processing"""
 
-        actual_results = read_json_file(actual_results_file)
+        clientlogs.info(f"uploading {self.files}")
+        results = self.ocr_client_obj.get_infrance_manyFilesUpload(self.files)
+
+        clientlogs.debug(results)
+
+        # Validation steps
+        actual_results = read_json_file(results)
 
         self.assertEqual(self.validation_results, actual_results)
 

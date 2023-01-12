@@ -28,7 +28,6 @@ spec:
           - |
             /root/ocr_service_backend/text-extraction/local_service/start_service.sh
           ports:
-            - name: http
-              containerPort:  {{ .Values.service.targetPort }}
-              protocol: TCP              
+          - containerPort:  {{ .Values.service.targetPort }}
+          - containerPort:  {{ .Values.service.targetPort2 }}
       terminationGracePeriodSeconds: {{ .Values.gracePeriod }}

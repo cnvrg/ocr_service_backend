@@ -14,21 +14,25 @@ import local_service.local_grpc.s3connect_pb2_grpc as s3connect_pb2_grpc
 clbaselogs = logging.getLogger(__name__)
 coloredlogs.install(level=logging.DEBUG, logger=clbaselogs)
 
+
 class base_logger:
     def __init__(self):
         self.locallogger = logging.getLogger(__name__)
-        coloredlogs.install(level=logging.DEBUG, logger=self.locallogger) 
+        coloredlogs.install(level=logging.DEBUG, logger=self.locallogger)
         self.locallogger.setLevel(logging.INFO)
-    
-        logformat = logging.Formatter(fmt="%(asctime)s:%(levelname)s:%(message)s", datefmt="%H:%M:%S")
-        
+
+        logformat = logging.Formatter(
+            fmt="%(asctime)s:%(levelname)s:%(message)s", datefmt="%H:%M:%S"
+        )
+
         logstream = logging.StreamHandler()
         logstream.setLevel(logging.INFO)
         logstream.setFormatter(logformat)
         self.locallogger.addHandler(logstream)
-        
+
     def get_logger(self):
         return self.locallogger
+
 
 class base_grpc_client(base_logger):
     def __init__(self):
@@ -62,7 +66,7 @@ class s3_grpc_client(base_grpc_client):
         remote_service_address=None,
         remote_service_port=None,
     ):
-        
+
         super().__init__()
         self.locallogger.debug("s3_client called")
         self.endpoint = endpoint if endpoint is not None else "http://s3.amazonaws.com"
@@ -181,13 +185,17 @@ class ocr_grpc_client(base_grpc_client):
         ocrreq = ocrservice_pb2.OCRrequestInference()
         ocrreq.s3Info.CopyFrom(req)
 
-        self.locallogger.info("----------send request for S3 files inference------------")
+        self.locallogger.info(
+            "----------send request for S3 files inference------------"
+        )
         for seq in stub.ProcessInfra(ocrreq):
 
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        self.locallogger.info(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(
+            f"-----------received: {results_file} -------------------"
+        )
         return results_file
 
     def get_inference_results_httplink(
@@ -205,13 +213,17 @@ class ocr_grpc_client(base_grpc_client):
         ocrreq = ocrservice_pb2.OCRrequestInference()
         ocrreq.httplink.extend(httplinks)
 
-        self.locallogger.info("----------send request for httpLink files inference------------")
+        self.locallogger.info(
+            "----------send request for httpLink files inference------------"
+        )
         for seq in stub.ProcessInfra(ocrreq):
 
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        self.locallogger.info(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(
+            f"-----------received: {results_file} -------------------"
+        )
 
         return results_file
 
@@ -232,13 +244,17 @@ class ocr_grpc_client(base_grpc_client):
         ocrreq = ocrservice_pb2.OCRrequestInference()
         ocrreq.filename.extend(shared_files)
 
-        self.locallogger.info("----------send request for shared files inference------------")
+        self.locallogger.info(
+            "----------send request for shared files inference------------"
+        )
         for seq in stub.ProcessInfra(ocrreq):
 
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        self.locallogger.info(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(
+            f"-----------received: {results_file} -------------------"
+        )
         return results_file
 
     def upload_files_iter(self, files: List[str]):
@@ -282,7 +298,9 @@ class ocr_grpc_client(base_grpc_client):
             with open(results_file, "ab") as rf:
                 rf.write(seq.data)
 
-        self.locallogger.info(f"-----------received: {results_file} -------------------")
+        self.locallogger.info(
+            f"-----------received: {results_file} -------------------"
+        )
         return results_file
 
     def process_S3_files(self, s3_args: dict):
@@ -290,7 +308,9 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            self.locallogger.info("-------------- requesting s3 files for inference --------------")
+            self.locallogger.info(
+                "-------------- requesting s3 files for inference --------------"
+            )
             results_file = self.get_inference_results_s3(s3_args, stub)
 
         return results_file
@@ -300,7 +320,9 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            self.locallogger.info("-----------sending files as http link --------------")
+            self.locallogger.info(
+                "-----------sending files as http link --------------"
+            )
             results_file = self.get_inference_results_httplink(httplinks, stub)
 
         return results_file
@@ -310,7 +332,9 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            self.locallogger.info("------------upload files for inference  --------------")
+            self.locallogger.info(
+                "------------upload files for inference  --------------"
+            )
             results_file = self.get_inference_results_uploadFiles(files, stub)
 
         return results_file
@@ -320,7 +344,9 @@ class ocr_grpc_client(base_grpc_client):
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
-            self.locallogger.info("------------upload files for inference  --------------")
+            self.locallogger.info(
+                "------------upload files for inference  --------------"
+            )
             results_file = self.get_inference_results_shared(files, stub)
 
         return results_file

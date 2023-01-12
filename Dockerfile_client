@@ -18,6 +18,9 @@ RUN pip install numpy \
         && pip install coloredlogs
 
 RUN mkdir /root/ocr_service_backend
+RUN mkdir /cnvrg
+COPY data/*  /cnvrg/
+
 ADD  client  /root/ocr_service_backend/client
 
 WORKDIR /root/ocr_service_backend/client
