@@ -48,7 +48,7 @@ class test_ocr_client(unittest.TestCase):
             "OCR_SERVICE_ADDRESS"
         )
 
-        cls.ocr_client_obj = grpc_client_base.ocr_grpc_client(**cls.service_network)
+        cls.ocr_client_obj = grpc_client_base.OcrGrpcClient(**cls.service_network)
 
     @unittest.skip(" running one test at time ")
     def test_ocr_s3_processing(self):
@@ -82,9 +82,7 @@ class test_ocr_client(unittest.TestCase):
     def test_uploaded_files(self):
         """bidirectional stream: upload pdf files to OCR service for processing"""
         actual_results_file = self.ocr_client_obj.process_uploaded_files(self.files)
-
         actual_results = read_json_file(actual_results_file)
-
         self.assertEqual(self.validation_results, actual_results)
 
 
