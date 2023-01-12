@@ -1,58 +1,16 @@
 """ grpc base client class """
 from datetime import datetime
-import logging
 from typing import List
 from dataclasses import dataclass, field, asdict, replace
-import coloredlogs, logging
 import grpc
 import local_service.local_grpc.ocrservice_pb2 as ocrservice_pb2
 import local_service.local_grpc.ocrservice_pb2_grpc as ocrservice_pb2_grpc
-
 import local_service.local_grpc.s3connect_pb2 as s3connect_pb2
 import local_service.local_grpc.s3connect_pb2_grpc as s3connect_pb2_grpc
-
-clbaselogs = logging.getLogger(__name__)
-coloredlogs.install(level=logging.DEBUG, logger=clbaselogs)
+from base_logger import BaseClient
 
 
-class base_logger:
-    def __init__(self):
-        self.locallogger = logging.getLogger(__name__)
-        coloredlogs.install(level=logging.DEBUG, logger=self.locallogger)
-        self.locallogger.setLevel(logging.INFO)
-
-        logformat = logging.Formatter(
-            fmt="%(asctime)s:%(levelname)s:%(message)s", datefmt="%H:%M:%S"
-        )
-
-        logstream = logging.StreamHandler()
-        logstream.setLevel(logging.INFO)
-        logstream.setFormatter(logformat)
-        self.locallogger.addHandler(logstream)
-
-    def get_logger(self):
-        return self.locallogger
-
-
-class base_grpc_client(base_logger):
-    def __init__(self):
-        super().__init__()
-        self.locallogger.debug("base is called")
-        self.remote_service_address = "localhost"
-        self.remote_service_port = "50051"
-
-    def makeLocalWorkingDir(self, prefix: str, wdir: str) -> str:
-        """local helper function for makring local directory"""
-        timestamp = datetime.now().strftime("%m-%d-%Y-%H-%M-%S")
-        dir_name = f"{wdir}/{prefix}-{timestamp}"
-
-        if not os.path.exists(dir_name):
-            os.mkdir(dir_name)
-
-        return dir_name
-
-
-class s3_grpc_client(base_grpc_client):
+class s3_grpc_client(BaseClient):
     def __init__(
         self,
         endpoint=None,
@@ -67,7 +25,7 @@ class s3_grpc_client(base_grpc_client):
         remote_service_port=None,
     ):
 
-        super().__init__()
+        super().__init__(remote_service_address, remote_service_port)
         self.locallogger.debug("s3_client called")
         self.endpoint = endpoint if endpoint is not None else "http://s3.amazonaws.com"
         self.command = command if command is not None else "download"
@@ -149,20 +107,9 @@ class s3_grpc_client(base_grpc_client):
             self.download_files(stub)
 
 
-class ocr_grpc_client(base_grpc_client):
-    def __init__(
-        self,
-        remote_service_address: str = None,
-        remote_service_port: str = None,
-    ):
-        super().__init__()
-
-        ## Update remote service address and port if provided.
-        if remote_service_address is not None:
-            self.remote_service_address = remote_service_address
-        if remote_service_port is not None:
-            self.remote_service_port = remote_service_port
-
+class OcrGrpcClient(BaseClient):
+    def __init__(self, remote_service_address, remote_service_port):
+        super().__init__(remote_service_address, remote_service_port)
         self.remote_endpoint_address = (
             f"{self.remote_service_address}:{self.remote_service_port}"
         )

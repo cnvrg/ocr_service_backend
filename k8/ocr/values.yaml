@@ -22,11 +22,11 @@ testDemo:
 service:
   type: NodePort
   name: s-fastapi
-  port: 50051
-  targetPort: 50051
+  port: 40051
+  targetPort: 40051
   name2: s-grcp
-  port2: 40051
-  targetPort2: 40051
+  port2: 50051
+  targetPort2: 50051
 
 ingress:
   enabled: false
