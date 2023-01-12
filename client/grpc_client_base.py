@@ -275,7 +275,7 @@ class OcrGrpcClient(BaseClient):
         return results_file
 
     def process_uploaded_files(self, files: List[str]):
-        """handle S3 direct file upload for inference request"""
+        """handle direct file upload for inference request"""
 
         with grpc.insecure_channel(self.remote_endpoint_address) as channel:
             stub = ocrservice_pb2_grpc.ocrserviceStub(channel)
