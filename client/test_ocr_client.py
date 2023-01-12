@@ -11,7 +11,6 @@ coloredlogs.install(level=logging.DEBUG, logger=clientlogs)
 
 
 def read_test_cfg_info(cfg_file: str) -> dict():
-
     test_cfg = {}
     with open(cfg_file) as c_info_file:
         test_cfg = yaml.load(c_info_file, Loader=SafeLoader)

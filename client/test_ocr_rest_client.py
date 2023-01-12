@@ -1,7 +1,6 @@
 import unittest
-import os
+import os, yaml, json
 import coloredlogs, logging
-import yaml
 from yaml.loader import SafeLoader
 import json
 import rest_client_base
@@ -11,7 +10,6 @@ coloredlogs.install(level=logging.DEBUG, logger=clientlogs)
 
 
 def read_test_cfg_info(cfg_file: str) -> dict():
-
     test_cfg = {}
     with open(cfg_file) as c_info_file:
         test_cfg = yaml.load(c_info_file, Loader=SafeLoader)
@@ -57,7 +55,7 @@ class test_ocr_client(unittest.TestCase):
         """Request OCR service to process files located in shared file system"""
         filename = self.files[0]
         clientlogs.info(f"uploading {filename}")
-        results = self.ocr_client_obj.get_infrance_fileUpload_jsonResults(filename)
+        results = self.ocr_client_obj.get_inference_fileUpload_jsonResults(filename)
 
         clientlogs.debug(results)
 
@@ -74,7 +72,7 @@ class test_ocr_client(unittest.TestCase):
         """bidirectional stream: upload pdf files to OCR service for processing"""
         filename = self.files[1]
         clientlogs.info(f"uploading {filename}")
-        results = self.ocr_client_obj.get_infrance_fileUpload(filename)
+        results = self.ocr_client_obj.get_inference_fileUpload(filename)
 
         clientlogs.debug(results)
 
@@ -91,13 +89,11 @@ class test_ocr_client(unittest.TestCase):
         """bidirectional stream: upload many pdf files to OCR service for processing"""
 
         clientlogs.info(f"uploading {self.files}")
-        results = self.ocr_client_obj.get_infrance_manyFilesUpload(self.files)
-
+        results = self.ocr_client_obj.get_inference_manyFilesUpload(self.files)
         clientlogs.debug(results)
-
+        
         # Validation steps
         actual_results = read_json_file(results)
-
         self.assertEqual(self.validation_results, actual_results)
 
 
