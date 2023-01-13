@@ -19,8 +19,6 @@ spec:
       echo "test gRPC connection"
       python3 test_ocr_client.py
       sleep 1h
-    ports:
-    - containerPort:  {{ .Values.service.targetPort }}
   imagePullSecrets:
   - name: {{ .Values.imagePullSecret }}
   terminationGracePeriodSeconds: {{ .Values.gracePeriod }}
