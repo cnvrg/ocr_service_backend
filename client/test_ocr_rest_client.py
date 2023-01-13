@@ -132,7 +132,7 @@ class test_ocr_client(unittest.TestCase):
         actual_results = read_json_file(results)
 
         # redis (for testing)
-        save_json_to_redis(results)
+        #save_json_to_redis(results)
 
         self.assertEqual(self.validation_results, actual_results)
 
