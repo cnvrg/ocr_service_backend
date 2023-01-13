@@ -1,6 +1,6 @@
 apiVersion: v2
-name: ocr
-description: A Helm chart for Kubernetes to run ocr as service backend
+name: OCR
+description: A Helm chart for Kubernetes to run OCR as service backend. The service takes pdf files as input and return as json or streamed file. Presently, testing client is part of the deployment. It should be refactored to workflow orchestra in the future.
 type: application
-version: 0.1.0
-appVersion: "1.16.0"
+version: 0.2.0
+appVersion: "1.20.0"
