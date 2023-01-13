@@ -1,0 +1,125 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "properties": {
+      "replicaCount": {
+        "description": "How many replicas used for OCR backend app",
+        "type": "integer",
+        "minimum": 1
+      },
+      "image": {
+        "description": "Container Image",
+        "properties": {
+          "repository": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "pullPolicy": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": ["repository", "name", "tag", "pullPolicy"]
+      },
+      "testDemo": {
+        "image": {
+            "description": "Test Demo Container Image",
+            "properties": {
+              "repository": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "pullPolicy": {
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "required": ["repository", "name", "tag", "pullPolicy"]
+          }
+      },
+      "imagePullSecret": {
+        "type": "string"
+      },
+      "service": {
+        "description": "Service should run on two ports: one for RESTful API and another one for gRPC",
+        "properties": {
+            "type": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "port": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "targetPort": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "name2": {
+                "type": "string"
+            },
+            "port2": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "targetPort2": {
+                "type": "integer",
+                "minimum": 0
+            }
+        },
+        "type": "object",
+        "required": ["type", "name", "port", "targetPort", "name2", "port2", "targetPort2"]
+      },
+      "gracePeriod": {
+        "description": "terminationGracePeriodSeconds",
+        "type": "integer",
+        "minimum": 0
+      },
+      "resources": {
+        "type": "object"
+      },
+      "autoscaling": {
+        "properties": {
+            "enabled": {
+                "type": "boolean"
+            },
+            "minReplicas": {
+                "type": "integer"
+            },
+            "maxReplicas": {
+                "type": "integer"
+            },
+            "targetCPUUtilizationPercentage": {
+                "type": "integer"
+            },
+            "targetMemoryUtilizationPercentage": {
+                "type": "integer"
+            }
+        },
+        "type": "object"        
+      }
+    },    
+    "required": [
+      "replicaCount",
+      "image",
+      "imagePullSecret",
+      "testDemo",
+      "service",
+      "gracePeriod",
+      "resources",
+      "autoscaling"
+    ],
+    "title": "Values",
+    "type": "object"
+  }
