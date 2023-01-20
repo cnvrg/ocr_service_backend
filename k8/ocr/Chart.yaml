@@ -4,4 +4,4 @@ description: A Helm chart for Kubernetes to run OCR as service backend. The serv
 type: application
 version: 0.2.0-AI+Vision
 appVersion: "1.20.0"
-icon: "typewriter.png"
+icon: typewriter.png
