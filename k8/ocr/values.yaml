@@ -10,7 +10,7 @@ image:
   tag: ubuntu_20.04_ocr_MVP_Set1_v3
   pullPolicy: Always
 
-imagePullSecret: regcred 
+imagePullSecret: ocr-secret
 
 testDemo:
   image:
@@ -27,7 +27,7 @@ service:
   name2: s-grcp
   port2: 50051
   targetPort2: 50051
-
+  annotations: {}
 gracePeriod: 5
 
 resources: {}
