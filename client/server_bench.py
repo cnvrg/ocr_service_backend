@@ -55,12 +55,12 @@ def bench_worker_pool(
             with Pool(processes=pool_size_actual) as pool:
                 # print(f"{_run_count=} {_sw_count=} {fileList[start:end]=} ")
                 pool.map(client_func, fileList[start:end])
-                end += 4
-                start += 4
+                end += pool_size_actual
+                start += pool_size_actual
 
 
 def bench_main():
-    user_worker_pool_bench: bool = False
+    user_worker_pool_bench: bool = True
     use_sequence_bench: bool = True
     files = ["/cnvrg/Data+science.pdf", "/cnvrg/economics.pdf"]
     ocr_network = {
