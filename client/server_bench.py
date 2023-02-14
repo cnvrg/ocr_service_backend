@@ -41,28 +41,16 @@ def bench_worker_pool(
     rounds: int,
     pool_size: int,
 ):
-    sizes = [pool_size, cpu_count(), len(fileList)]
-    pool_size_actual = min(sizes)
-    # _trim_len = len(fileList) % pool_size_actual
-
-    pool_sweep_counts = len(fileList) // pool_size_actual
-
-    start, end = 0, pool_size_actual
 
     for _run_count in range(rounds):
-        start, end = 0, pool_size_actual
-        # print(f"{pool_size_actual=} {pool_sweep_counts=} {start=} {end=}")
-        for _sw_count in range(pool_sweep_counts):
-            with Pool(processes=pool_size_actual) as pool:
-                # print(f"{_run_count=} {_sw_count=} {fileList[start:end]=} ")
-                pool.map(client_func, fileList[start:end])
-                end += pool_size_actual
-                start += pool_size_actual
+
+        with Pool(processes=pool_size) as pool:
+            pool.map(client_func, fileList)
 
 
 def bench_main():
-    user_worker_pool_bench: bool = False
-    use_sequence_bench: bool = True
+    user_worker_pool_bench: bool = True
+    use_sequence_bench: bool = False
     files = ["/cnvrg/Data+science.pdf", "/cnvrg/economics.pdf"]
     ocr_network = {
         "remote_service_address": os.environ.get("OCR_SERVICE_ADDRESS"),
@@ -78,7 +66,7 @@ def bench_main():
     if user_worker_pool_bench:
         largeFileList = [*files, *files, *files, *files]
         bench_worker_pool(
-            ocr_client_object.get_infrance_fileUpload_jsonResults, largeFileList, 1, 4
+            ocr_client_object.get_infrance_fileUpload_jsonResults, largeFileList, 2, 8
         )
 
 
