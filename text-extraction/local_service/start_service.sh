@@ -10,7 +10,7 @@ SERVICE_TWO="${SCRIPT_DIRECTORY}/start_fastapi_service.sh"
 #!/bin/bash
 
 # Start the first process
-${SERVICE_ONE} &
+#${SERVICE_ONE} &
   
 # Start the second process
 ${SERVICE_TWO} &
