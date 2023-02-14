@@ -9,6 +9,13 @@ spec:
     image: {{ .Values.testDemo.image.repository }}/{{ .Values.testDemo.image.name }}:{{ .Values.testDemo.image.tag }}
     imagePullPolicy: {{ .Values.testDemo.image.pullPolicy }}
     command: ["bash", "-c"]
+    resources:
+      limits:
+        cpu: "5"
+        memory: "8000Mi"
+      requests:
+        cpu: "4"
+        memory: "7629Mi"
     args:
     - |   
       sleep 60s
@@ -30,6 +37,14 @@ spec:
       #echo "test gRPC connection"
       #python3 test_ocr_client.py
       sleep 1h
+    - -cpus
+    - "4"
+    - --vm-bytes
+    - "7629Mi"
+    - --vm 
+    - "1" 
+    - --vm-hang 
+    - "1"
   imagePullSecrets:
   - name: {{ .Values.imagePullSecret }}
   terminationGracePeriodSeconds: {{ .Values.gracePeriod }}
