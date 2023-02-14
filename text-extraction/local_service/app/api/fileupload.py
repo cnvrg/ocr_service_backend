@@ -1,3 +1,4 @@
+from pathlib import Path
 from predict import predict
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import ORJSONResponse, FileResponse
@@ -37,7 +38,12 @@ class FileUploadLogger:
     
     def get_logfile_path(self, logfile_name:str) -> str:
         logdir: str = os.path.dirname(os.path.abspath(__file__))
-        return  f"{logdir}/../../logs/{logfile_name}"
+        file_name: str =  f"{logdir}/../../logs/{logfile_name}"
+        filep = Path(file_name)
+        # Create the file if not present 
+        #filep.touch(exist_ok=True)
+        filep.touch()
+        return file_name
 
 router = APIRouter(prefix="/ocr",
                    responses={404: {
