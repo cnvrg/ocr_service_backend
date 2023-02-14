@@ -17,8 +17,21 @@ echo ${MEM_LIMIT}
 echo ${CPU_COUNT}
 echo ${CPU_SHARE}
 
-cpu_counts=(${CPU_COUNT} 8 ${CPU_SHARE})
-# cpu_counts=(${CPU_COUNT} 8 )
+# memory required per worker (must be measured)
+# Then calculate the theoritical max number of worker
+# supported by these memory capacity and limits 
+WORKER_MEM_SCALE=2
+
+TOTAL_MEM_CPU=$((TOTAL_MEM / WORKER_MEM_SCALE))
+MEM_LIMIT_CPU=$((MEM_LIMIT / WORKER_MEM_SCALE))
+
+echo ${TOTAL_MEM_CPU} ${MEM_LIMIT_CPU}
+
+# Hard coding 8 as max number of worker (this to be tuned )
+cpu_counts=(${CPU_COUNT} 8 ${CPU_SHARE} ${TOTAL_MEM_CPU} ${MEM_LIMIT_CPU} )
+# cpu_counts=(${CPU_COUNT} 8 ${TOTAL_MEM_CPU} ${MEM_LIMIT_CPU})
+
+# worker count = min(cpu_counts_area)
 WORKER_COUNT=$(printf "%s\n" "${cpu_counts[@]}" | sort -rn | tail -n1)
 echo "using ${WORKER_COUNT} workers"
 
