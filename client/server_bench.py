@@ -4,7 +4,8 @@ import json
 import time
 from functools import wraps
 from typing import List
-from multiprocessing import Pool, TimeoutError, cpu_count
+from multiprocessing import Pool, cpu_count
+from concurrent.futures import ProcessPoolExecutor
 from rest_client_base import OcrRestClient
 
 
@@ -43,9 +44,8 @@ def bench_worker_pool(
 ):
 
     for _run_count in range(rounds):
-
-        with Pool(processes=pool_size) as pool:
-            pool.map(client_func, fileList)
+        with ProcessPoolExecutor() as executor:
+            executor.map(client_func, fileList)
 
 
 def bench_main():
