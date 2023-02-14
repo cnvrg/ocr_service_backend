@@ -15,7 +15,8 @@ def timeit(func):
         result = func(*args, **kwargs)
         end_time = time.perf_counter()
         total_time = end_time - start_time
-        print(f"Function {func.__name__}{args} {kwargs} Took {total_time:.4f} seconds")
+        # print(f"Function {func.__name__}{args} {kwargs} Took {total_time:.4f} seconds")
+        print(f"Function {func.__name__} Took {total_time:.4f} seconds")
         return result
 
     return timeit_wrapper
@@ -60,7 +61,7 @@ def bench_worker_pool(
 
 
 def bench_main():
-    user_worker_pool_bench: bool = True
+    user_worker_pool_bench: bool = False
     use_sequence_bench: bool = True
     files = ["/cnvrg/Data+science.pdf", "/cnvrg/economics.pdf"]
     ocr_network = {
@@ -75,8 +76,9 @@ def bench_main():
 
     # worker pool test:
     if user_worker_pool_bench:
+        largeFileList = [*files, *files, *files, *files]
         bench_worker_pool(
-            ocr_client_object.get_infrance_fileUpload_jsonResults, files, 4, 2
+            ocr_client_object.get_infrance_fileUpload_jsonResults, largeFileList, 1, 4
         )
 
 
