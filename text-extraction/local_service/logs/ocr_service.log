@@ -492,3 +492,9 @@ httplink: "https://libhub-readme.s3.us-west-2.amazonaws.com/pdf_extraction_data/
 18:39:29:DEBUG:sent segment
 18:39:29:DEBUG:sent segment
 18:39:29:DEBUG:sent segment
+02:27:04:INFO:ocr grpc server started
+03:18:26:INFO:received shutdown signal, Waiting 30 second to clear jobs
+03:18:26:INFO:completed gracefull shut down
+03:25:58:INFO:ocr grpc server started
+03:28:07:INFO:received shutdown signal, Waiting 30 second to clear jobs
+03:28:07:INFO:completed gracefull shut down
