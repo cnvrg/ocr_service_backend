@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: lamatriz
   name: wlpu
-  tag: ubuntu_20.04_ocr_MVP_Set1_v3
+  tag: ubuntu_20.04_ocr_worker_MVP_Set1_v3
   pullPolicy: Always
 
 imagePullSecret: ocr-secret
