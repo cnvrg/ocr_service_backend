@@ -52,7 +52,7 @@ def bench_worker_pool(
 
 def bench_main():
     user_worker_pool_bench: bool = True
-    use_sequence_bench: bool = False
+    use_sequence_bench: bool = True
     files = ["/cnvrg/Data+science.pdf", "/cnvrg/economics.pdf"]
     ocr_network = {
         "remote_service_address": os.environ.get("OCR_SERVICE_ADDRESS"),
@@ -68,7 +68,7 @@ def bench_main():
     if user_worker_pool_bench:
         largeFileList = [*files, *files, *files, *files]
         bench_worker_pool(
-            ocr_client_object.get_inference_fileUpload_jsonResults, largeFileList, 2, 8
+            ocr_client_object.get_inference_fileUpload_jsonResults, largeFileList, 1, 8
         )
 
 
