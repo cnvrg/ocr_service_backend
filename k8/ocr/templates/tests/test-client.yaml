@@ -31,5 +31,5 @@ spec:
       #python3 test_ocr_client.py
       sleep 1h
   imagePullSecrets:
-  - name: {{ .Values.imagePullSecret }}
+  - name: {{ include "ocr.fullname" . }}-secret
   terminationGracePeriodSeconds: {{ .Values.gracePeriod }}

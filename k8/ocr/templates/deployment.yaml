@@ -17,14 +17,14 @@ spec:
         {{- include "ocr.selectorLabels" . | nindent 8 }}
     spec:
       imagePullSecrets:
-        - name: {{ .Values.imagePullSecret }}      
+        - name: {{ include "ocr.fullname" . }}-secret
       containers:
         - name: {{ .Chart.Name }}
-          resources:
-                  limits:
-                          cpu: 8
-                  requests:
-                          cpu: 4      
+          resources: 
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}

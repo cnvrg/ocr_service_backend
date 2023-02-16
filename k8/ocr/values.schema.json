@@ -46,9 +46,6 @@
             "required": ["repository", "name", "tag", "pullPolicy"]
           }
       },
-      "imagePullSecret": {
-        "type": "string"
-      },
       "service": {
         "description": "Service should run on two ports: one for RESTful API and another one for gRPC",
         "properties": {
@@ -87,7 +84,16 @@
         "minimum": 0
       },
       "resources": {
-        "type": "object"
+        "limits": {
+          "cpu": {
+            "type": "integer"
+          }
+        },
+        "requests": {
+          "cpu": {
+            "type": "integer"
+          }
+        }
       },
       "autoscaling": {
         "properties": {
@@ -113,7 +119,6 @@
     "required": [
       "replicaCount",
       "image",
-      "imagePullSecret",
       "testDemo",
       "service",
       "gracePeriod",
