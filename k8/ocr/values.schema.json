@@ -87,11 +87,17 @@
         "limits": {
           "cpu": {
             "type": "integer"
+          },
+          "memory": {
+            "type": "string"
           }
         },
         "requests": {
           "cpu": {
             "type": "integer"
+          },
+          "memory": {
+            "type": "string"
           }
         }
       },

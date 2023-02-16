@@ -9,6 +9,11 @@ spec:
     image: {{ .Values.testDemo.image.repository }}/{{ .Values.testDemo.image.name }}:{{ .Values.testDemo.image.tag }}
     imagePullPolicy: {{ .Values.testDemo.image.pullPolicy }}
     command: ["bash", "-c"]
+    resources: 
+      limits:
+        cpu: 8
+      requests:
+        cpu: 8
     args:
     - |   
       sleep 60s

@@ -23,8 +23,10 @@ spec:
           resources: 
             limits:
               cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
