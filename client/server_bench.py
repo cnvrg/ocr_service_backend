@@ -44,8 +44,10 @@ def bench_worker_pool(
 ):
 
     for _run_count in range(rounds):
-        with ProcessPoolExecutor() as executor:
+        with ProcessPoolExecutor(max_workers=pool_size) as executor:
             executor.map(client_func, fileList)
+        # with Pool(processes=pool_size) as pool:
+        #    pool.map(client_func, fileList, chunksize=1)
 
 
 def bench_main():
@@ -60,7 +62,7 @@ def bench_main():
 
     # normal tests
     if use_sequence_bench:
-        bench_sequence(ocr_client_object.get_inference_fileUpload_jsonResults, files, 4)
+        bench_sequence(ocr_client_object.get_inference_fileUpload_jsonResults, files, 8)
 
     # worker pool test:
     if user_worker_pool_bench:
