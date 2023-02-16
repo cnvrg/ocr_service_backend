@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "ocr.fullname" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "ocr.labels" . | nindent 4 }}
 spec:
@@ -16,9 +17,14 @@ spec:
         {{- include "ocr.selectorLabels" . | nindent 8 }}
     spec:
       imagePullSecrets:
-        - name: {{ .Values.imagePullSecret }}      
+        - name: {{ include "ocr.fullname" . }}-secret
       containers:
         - name: {{ .Chart.Name }}
+          resources: 
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}

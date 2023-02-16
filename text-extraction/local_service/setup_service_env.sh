@@ -18,6 +18,14 @@ else
     pip install coloredlogs
 fi
 
+if python3 -c "import gunicorn" &> /dev/null; then  
+    echo "package gunicorn is installed" 
+else  
+    echo "package gunicorn not found: Installing"
+    pip install "uvicorn[standard]" gunicorn
+fi
+
+
 echo HOME_ROOT=${HOME_ROOT}
 echo INFERENCE_DIR=${INFERENCE_DIR}
 echo BATCH_DIR=${BATCH_DIR}

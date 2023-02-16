@@ -3,7 +3,8 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND="noninteractive"  TZ=Etc/UTC
 RUN apt-get update && apt-get install -y tzdata bash-completion python3-pip openssh-server vim git iputils-ping net-tools\
         libgl1-mesa-dev libpangocairo-1.0-0 python-dev libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext \
-        tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev protobuf-compiler curl \
+        tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev protobuf-compiler curl \ 
+        bc gawk \
         && rm -rf /var/lib/apt/lists/* 
 
 RUN pip install --upgrade pip \
@@ -36,7 +37,8 @@ RUN pip install --upgrade pip \
         && pip install "tqdm>=4.30.0" \
         && pip install "rapidfuzz>=1.6.0" \
         && pip install "huggingface-hub>=0.4.0" \
-        && pip install "PyPDF2==2.10.2"
+        && pip install "PyPDF2==2.10.2" \
+        && pip install "uvicorn[standard]" gunicorn
 
 RUN curl -LS https://go.dev/dl/go1.19.5.linux-amd64.tar.gz | tar -xzC /usr/local
 ENV PATH="/usr/local/go/bin:${PATH}"

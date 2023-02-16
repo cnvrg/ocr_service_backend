@@ -7,7 +7,7 @@ import urllib.request
 import requests
 from typing import List, Tuple
 import json
-
+from pathlib import Path
 from inference.predict import predict
 from signal import signal, SIGTERM, SIGINT
 import time
@@ -22,7 +22,11 @@ coloredlogs.install(level=logging.DEBUG, logger=ocrlogs)
 
 def get_logfile_path(logfile_name:str) -> str:
     logdir: str = os.path.dirname(os.path.abspath(__file__))
-    return  f"{logdir}/../logs/{logfile_name}"
+    file_name =  f"{logdir}/../logs/{logfile_name}"
+    filep = Path(file_name)
+    # Create the file if not present 
+    filep.touch(exist_ok=True)
+    return file_name
 
 def makeLocalWorkingDir(prefix="ocrResults", wdir="/tmp") -> str:
     """local helper function for makring local directory"""

@@ -7,10 +7,8 @@ replicaCount: 1
 image:
   repository: lamatriz
   name: wlpu
-  tag: ubuntu_20.04_ocr_MVP_Set1_v3
+  tag: ubuntu_20.04_ocr_worker_MVP_Set1_v3
   pullPolicy: Always
-
-imagePullSecret: ocr-secret
 
 testDemo:
   image:
@@ -30,17 +28,13 @@ service:
   annotations: {}
 gracePeriod: 5
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+namespace: mldev
+
+resources:
+  limits:
+    cpu: 8
+  requests:
+    cpu: 4
 
 autoscaling:
   enabled: false
