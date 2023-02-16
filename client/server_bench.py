@@ -44,7 +44,7 @@ def bench_worker_pool(
 ):
 
     for _run_count in range(rounds):
-        with ProcessPoolExecutor() as executor:
+        with ProcessPoolExecutor(max_workers=pool_size) as executor:
             executor.map(client_func, fileList)
 
 
