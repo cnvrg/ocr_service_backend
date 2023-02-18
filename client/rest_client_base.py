@@ -24,7 +24,7 @@ class OcrRestClient(BaseClient):
             self.remote_service_port if self.remote_service_port is not None else 40051
         )
         self.connection_url = f"{self.url}:{self.port}"
-        self.timeout = 30
+        self.timeout = 500
         self.setup_app_router()
 
     def setup_app_router(self):
