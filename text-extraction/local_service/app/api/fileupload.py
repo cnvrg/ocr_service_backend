@@ -81,6 +81,10 @@ def savePredictionResults(results: dict, name_prefix='text') -> str:
         rf.write(json_pred)    
     
     return results_file
+
+def cleanup_files(file_path:str):
+    dir_name = os.path.dirname(file_path)
+    shutil.rmtree(dir_name)
     
 @router.post('/extract', response_class=ORJSONResponse)
 async def handle_file_upload_1(file: UploadFile):
@@ -89,6 +93,9 @@ async def handle_file_upload_1(file: UploadFile):
         
     data = dict(pdf= [working_filename_name])
     prediction = predict(data)    
+
+    cleanup_files(working_filename_name)
+
     routerLoger.getLogger().info(f"{working_filename_name }Text extraction completed! returning results")
     return prediction
 
@@ -102,6 +109,8 @@ async def handle_file_upload_2(file: UploadFile):
 
     resultsFile = savePredictionResults(prediction, file.filename.split('.')[0])
 
+    cleanup_files(working_filename_name)
+
     routerLoger.getLogger().debug(f'{resultsFile}')
     return resultsFile
 
@@ -113,6 +122,8 @@ async def handle_file_upload_3(files: List[UploadFile]):
     routerLoger.getLogger().info(f"{file_names}")
     data = dict(pdf= file_names)
     prediction = predict(data)    
+
+    [cleanup_files(fitem) for fitem in file_names ]
 
     resultsFile = savePredictionResults(prediction)
 
