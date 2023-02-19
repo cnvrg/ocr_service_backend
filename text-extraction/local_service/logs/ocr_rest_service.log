@@ -591,3 +591,125 @@
 17:00:11:INFO:/tmp/upload-02-15-2023-17-00-06/Data+science.pdfText extraction completed! returning results
 17:00:11:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-15-2023-17-00-11/Data+science.pdf'
 17:00:17:INFO:/tmp/upload-02-15-2023-17-00-11/Data+science.pdfText extraction completed! returning results
+21:00:01:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-01/Data+science.pdf'
+21:00:04:INFO:/tmp/upload-02-19-2023-21-00-01/Data+science.pdfText extraction completed! returning results
+21:00:04:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-04/economics.pdf'
+21:00:04:INFO:/tmp/upload-02-19-2023-21-00-04/economics.pdfText extraction completed! returning results
+21:00:04:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-04/Data+science.pdf'
+21:00:08:INFO:/tmp/upload-02-19-2023-21-00-04/Data+science.pdfText extraction completed! returning results
+21:00:08:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-08/economics.pdf'
+21:00:08:INFO:/tmp/upload-02-19-2023-21-00-08/economics.pdfText extraction completed! returning results
+21:00:08:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-08/Data+science.pdf'
+21:00:12:INFO:/tmp/upload-02-19-2023-21-00-08/Data+science.pdfText extraction completed! returning results
+21:00:12:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-12/economics.pdf'
+21:00:12:INFO:/tmp/upload-02-19-2023-21-00-12/economics.pdfText extraction completed! returning results
+21:00:12:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-12/Data+science.pdf'
+21:00:17:INFO:/tmp/upload-02-19-2023-21-00-12/Data+science.pdfText extraction completed! returning results
+21:00:17:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-17/economics.pdf'
+21:00:17:INFO:/tmp/upload-02-19-2023-21-00-17/economics.pdfText extraction completed! returning results
+21:00:17:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-17/economics.pdf'
+21:00:17:INFO:/tmp/upload-02-19-2023-21-00-17/economics.pdfText extraction completed! returning results
+21:00:17:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-17/economics.pdf'
+21:00:17:INFO:/tmp/upload-02-19-2023-21-00-17/economics.pdfText extraction completed! returning results
+21:00:17:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-17/economics.pdf'
+21:00:18:INFO:/tmp/upload-02-19-2023-21-00-17/economics.pdfText extraction completed! returning results
+21:00:18:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-00-18/economics.pdf'
+21:00:18:INFO:/tmp/upload-02-19-2023-21-00-18/economics.pdfText extraction completed! returning results
+21:00:18:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-18/Data+science.pdf'
+21:00:22:INFO:/tmp/upload-02-19-2023-21-00-18/Data+science.pdfText extraction completed! returning results
+21:00:22:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-22/Data+science.pdf'
+21:00:27:INFO:/tmp/upload-02-19-2023-21-00-22/Data+science.pdfText extraction completed! returning results
+21:00:27:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-27/Data+science.pdf'
+21:00:31:INFO:/tmp/upload-02-19-2023-21-00-27/Data+science.pdfText extraction completed! returning results
+21:00:31:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-00-31/Data+science.pdf'
+21:00:36:INFO:/tmp/upload-02-19-2023-21-00-31/Data+science.pdfText extraction completed! returning results
+21:03:15:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-15/Data+science.pdf'
+21:03:18:INFO:/tmp/upload-02-19-2023-21-03-15/Data+science.pdfText extraction completed! returning results
+21:03:18:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-18/economics.pdf'
+21:03:18:INFO:/tmp/upload-02-19-2023-21-03-18/economics.pdfText extraction completed! returning results
+21:03:18:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-18/Data+science.pdf'
+21:03:21:INFO:/tmp/upload-02-19-2023-21-03-18/Data+science.pdfText extraction completed! returning results
+21:03:21:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-21/economics.pdf'
+21:03:21:INFO:/tmp/upload-02-19-2023-21-03-21/economics.pdfText extraction completed! returning results
+21:03:21:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-21/Data+science.pdf'
+21:03:26:INFO:/tmp/upload-02-19-2023-21-03-21/Data+science.pdfText extraction completed! returning results
+21:03:26:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-26/economics.pdf'
+21:03:26:INFO:/tmp/upload-02-19-2023-21-03-26/economics.pdfText extraction completed! returning results
+21:03:26:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-26/Data+science.pdf'
+21:03:29:INFO:/tmp/upload-02-19-2023-21-03-26/Data+science.pdfText extraction completed! returning results
+21:03:29:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/economics.pdf'
+21:03:29:INFO:/tmp/upload-02-19-2023-21-03-29/economics.pdfText extraction completed! returning results
+21:03:29:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/economics.pdf'
+21:03:29:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/economics.pdf'
+21:03:29:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/Data+science.pdf'
+21:03:29:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/economics.pdf'
+21:03:29:INFO:/tmp/upload-02-19-2023-21-03-29/economics.pdfText extraction completed! returning results
+21:03:29:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/Data+science.pdf'
+21:03:29:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/economics.pdf'
+21:03:29:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/Data+science.pdf'
+21:03:29:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-2023-21-03-29/Data+science.pdf'
+21:03:29:INFO:/tmp/upload-02-19-2023-21-03-29/economics.pdfText extraction completed! returning results
+21:16:10:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-10-100957/Data+science.pdf'
+21:16:12:INFO:/tmp/upload-02-19-21-16-10-100957/Data+science.pdfText extraction completed! returning results
+21:16:13:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-13-083917/economics.pdf'
+21:16:13:INFO:/tmp/upload-02-19-21-16-13-083917/economics.pdfText extraction completed! returning results
+21:16:13:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-13-327719/Data+science.pdf'
+21:16:16:INFO:/tmp/upload-02-19-21-16-13-327719/Data+science.pdfText extraction completed! returning results
+21:16:16:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-16-101981/economics.pdf'
+21:16:16:INFO:/tmp/upload-02-19-21-16-16-101981/economics.pdfText extraction completed! returning results
+21:16:16:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-16-314886/Data+science.pdf'
+21:16:19:INFO:/tmp/upload-02-19-21-16-16-314886/Data+science.pdfText extraction completed! returning results
+21:16:19:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-19-368755/economics.pdf'
+21:16:19:INFO:/tmp/upload-02-19-21-16-19-368755/economics.pdfText extraction completed! returning results
+21:16:19:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-19-511866/Data+science.pdf'
+21:16:22:INFO:/tmp/upload-02-19-21-16-19-511866/Data+science.pdfText extraction completed! returning results
+21:16:22:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-22-196963/economics.pdf'
+21:16:22:INFO:/tmp/upload-02-19-21-16-22-196963/economics.pdfText extraction completed! returning results
+21:16:22:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-22-346214/economics.pdf'
+21:16:22:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-22-346243/Data+science.pdf'
+21:16:22:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-22-346408/economics.pdf'
+21:16:22:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-22-346750/Data+science.pdf'
+21:16:22:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-22-466238/economics.pdf'
+21:16:22:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-16-22-478105/economics.pdf'
+21:16:22:INFO:/tmp/upload-02-19-21-16-22-346408/economics.pdfText extraction completed! returning results
+21:16:22:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-22-509185/Data+science.pdf'
+21:16:22:INFO:/tmp/upload-02-19-21-16-22-466238/economics.pdfText extraction completed! returning results
+21:16:22:INFO:/tmp/upload-02-19-21-16-22-478105/economics.pdfText extraction completed! returning results
+21:16:22:INFO:/tmp/upload-02-19-21-16-22-346214/economics.pdfText extraction completed! returning results
+21:16:30:INFO:/tmp/upload-02-19-21-16-22-509185/Data+science.pdfText extraction completed! returning results
+21:16:30:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-30-098891/Data+science.pdf'
+21:16:31:INFO:/tmp/upload-02-19-21-16-22-346750/Data+science.pdfText extraction completed! returning results
+21:16:32:INFO:/tmp/upload-02-19-21-16-22-346243/Data+science.pdfText extraction completed! returning results
+21:16:35:INFO:/tmp/upload-02-19-21-16-30-098891/Data+science.pdfText extraction completed! returning results
+21:16:56:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-16-56-536782/Data+science.pdf'
+21:17:00:INFO:/tmp/upload-02-19-21-16-56-536782/Data+science.pdfText extraction completed! returning results
+21:17:00:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-00-703386/economics.pdf'
+21:17:00:INFO:/tmp/upload-02-19-21-17-00-703386/economics.pdfText extraction completed! returning results
+21:17:00:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-17-00-842406/Data+science.pdf'
+21:17:05:INFO:/tmp/upload-02-19-21-17-00-842406/Data+science.pdfText extraction completed! returning results
+21:17:05:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-05-488742/economics.pdf'
+21:17:05:INFO:/tmp/upload-02-19-21-17-05-488742/economics.pdfText extraction completed! returning results
+21:17:05:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-17-05-741978/Data+science.pdf'
+21:17:10:INFO:/tmp/upload-02-19-21-17-05-741978/Data+science.pdfText extraction completed! returning results
+21:17:10:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-10-391469/economics.pdf'
+21:17:10:INFO:/tmp/upload-02-19-21-17-10-391469/economics.pdfText extraction completed! returning results
+21:17:10:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-17-10-633695/Data+science.pdf'
+21:17:15:INFO:/tmp/upload-02-19-21-17-10-633695/Data+science.pdfText extraction completed! returning results
+21:17:15:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-15-051707/economics.pdf'
+21:17:15:INFO:/tmp/upload-02-19-21-17-15-051707/economics.pdfText extraction completed! returning results
+21:17:15:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-17-15-201535/Data+science.pdf'
+21:17:15:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-15-202067/economics.pdf'
+21:17:15:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-15-202089/economics.pdf'
+21:17:15:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-17-15-202339/Data+science.pdf'
+21:17:15:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-15-202460/economics.pdf'
+21:17:15:DEBUG:Saving economics.pdf to localFile='/tmp/upload-02-19-21-17-15-319262/economics.pdf'
+21:17:15:INFO:/tmp/upload-02-19-21-17-15-202067/economics.pdfText extraction completed! returning results
+21:17:15:INFO:/tmp/upload-02-19-21-17-15-202089/economics.pdfText extraction completed! returning results
+21:17:15:INFO:/tmp/upload-02-19-21-17-15-202460/economics.pdfText extraction completed! returning results
+21:17:15:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-17-15-430780/Data+science.pdf'
+21:17:15:INFO:/tmp/upload-02-19-21-17-15-319262/economics.pdfText extraction completed! returning results
+21:17:27:INFO:/tmp/upload-02-19-21-17-15-430780/Data+science.pdfText extraction completed! returning results
+21:17:30:INFO:/tmp/upload-02-19-21-17-15-201535/Data+science.pdfText extraction completed! returning results
+21:17:31:INFO:/tmp/upload-02-19-21-17-15-202339/Data+science.pdfText extraction completed! returning results
+21:17:31:DEBUG:Saving Data+science.pdf to localFile='/tmp/upload-02-19-21-17-31-323172/Data+science.pdf'
+21:17:36:INFO:/tmp/upload-02-19-21-17-31-323172/Data+science.pdfText extraction completed! returning results

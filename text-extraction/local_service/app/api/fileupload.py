@@ -55,7 +55,7 @@ routerLoger = FileUploadLogger()
 
 def makeLocalWorkingDir(prefix="upload", wdir="/tmp") -> str:
     """local helper function for makring local directory"""
-    timestamp = datetime.now().strftime("%m-%d-%Y-%H-%M-%S")
+    timestamp = datetime.now().strftime("%m-%d-%H-%M-%S-%f")
     dir_name = f"{wdir}/{prefix}-{timestamp}"
 
     if not os.path.exists(dir_name):

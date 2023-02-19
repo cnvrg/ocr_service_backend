@@ -5,3 +5,12 @@
 15:47:07:INFO:ocr grpc server started
 15:48:06:INFO:received shutdown signal, Waiting 30 second to clear jobs
 15:48:06:INFO:completed gracefull shut down
+20:47:46:INFO:ocr grpc server started
+20:48:18:INFO:ocr grpc server started
+20:50:36:INFO:ocr grpc server started
+21:02:06:INFO:received shutdown signal, Waiting 30 second to clear jobs
+21:02:06:INFO:completed gracefull shut down
+21:02:39:INFO:ocr grpc server started
+21:15:04:INFO:received shutdown signal, Waiting 30 second to clear jobs
+21:15:04:INFO:completed gracefull shut down
+21:15:28:INFO:ocr grpc server started
