@@ -29,10 +29,12 @@ echo ${TOTAL_MEM_CPU} ${MEM_LIMIT_CPU}
 
 # Hard coding 8 as max number of worker (this to be tuned )
 cpu_counts=(${CPU_COUNT} 8 ${CPU_SHARE} ${TOTAL_MEM_CPU} ${MEM_LIMIT_CPU} )
-#cpu_counts=(${CPU_COUNT} 8 ${TOTAL_MEM_CPU} ${MEM_LIMIT_CPU})
 
 # worker count = min(cpu_counts_area)
 WORKER_COUNT=$(printf "%s\n" "${cpu_counts[@]}" | sort -rn | tail -n1)
+
+# Check if REST_WORKER_COUNT is set then use it
+WORKER_COUNT=${REST_WORKER_COUNT:-${WORKER_COUNT}}
 echo "using ${WORKER_COUNT} workers"
 
 
