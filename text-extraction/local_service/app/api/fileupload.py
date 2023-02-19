@@ -2,6 +2,7 @@ from pathlib import Path
 from predict import predict
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import ORJSONResponse, FileResponse
+from starlette.background import BackgroundTasks
 from local_service.app.api.models import InferenceResults, InferenceIn, InferenceOut
 from inference.predict import predict
 from typing import BinaryIO, List
@@ -112,6 +113,8 @@ async def handle_file_upload_2(file: UploadFile):
     cleanup_files(working_filename_name)
 
     routerLoger.getLogger().debug(f'{resultsFile}')
+
+    BackgroundTasks.add_task(cleanup_files, resultsFile)
     return resultsFile
 
 @router.post('/extract/files', response_class=FileResponse)
@@ -123,9 +126,11 @@ async def handle_file_upload_3(files: List[UploadFile]):
     data = dict(pdf= file_names)
     prediction = predict(data)    
 
-    [cleanup_files(fitem) for fitem in file_names ]
+    cleanup_files(file_names[0]) 
 
     resultsFile = savePredictionResults(prediction)
 
     routerLoger.getLogger().debug(f'{resultsFile}')
+    
+    BackgroundTasks.add_task(cleanup_files, resultsFile)
     return resultsFile

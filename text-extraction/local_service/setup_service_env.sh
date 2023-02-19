@@ -25,6 +25,13 @@ else
     pip install "uvicorn[standard]" gunicorn
 fi
 
+if python3 -c "import starlette" &> /dev/null; then  
+    echo "package starlette is installed" 
+else  
+    echo "package starlette not found: Installing"
+    pip install starlette
+fi
+
 
 echo HOME_ROOT=${HOME_ROOT}
 echo INFERENCE_DIR=${INFERENCE_DIR}
