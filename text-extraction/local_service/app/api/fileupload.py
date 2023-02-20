@@ -39,10 +39,8 @@ class FileUploadLogger:
     def get_logfile_path(self, logfile_name:str) -> str:
         logdir: str = os.path.dirname(os.path.abspath(__file__))
         file_name: str =  f"{logdir}/../../logs/{logfile_name}"
-        filep = Path(file_name)
         # Create the file if not present 
-        #filep.touch(exist_ok=True)
-        filep.touch()
+        Path(file_name).touch(exist_ok=True)
         return file_name
 
 router = APIRouter(prefix="/ocr",
