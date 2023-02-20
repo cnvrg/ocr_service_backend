@@ -1,8 +1,7 @@
 from pathlib import Path
 from predict import predict
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, UploadFile, BackgroundTasks
 from fastapi.responses import ORJSONResponse, FileResponse
-from starlette.background import BackgroundTasks
 from local_service.app.api.models import InferenceResults, InferenceIn, InferenceOut
 from inference.predict import predict
 from typing import BinaryIO, List
@@ -101,7 +100,7 @@ async def handle_file_upload_1(file: UploadFile):
     return prediction
 
 @router.post('/extract/file', response_class=FileResponse)
-async def handle_file_upload_2(file: UploadFile):
+async def handle_file_upload_2(file: UploadFile, background_tasks: BackgroundTasks):
     """ base prediction endpoint handler, return results file"""
     working_filename_name = saveFileLocally(file)
         
@@ -114,11 +113,11 @@ async def handle_file_upload_2(file: UploadFile):
 
     routerLoger.getLogger().debug(f'{resultsFile}')
 
-    BackgroundTasks.add_task(cleanup_files, resultsFile)
+    background_tasks.add_task(cleanup_files, resultsFile)
     return resultsFile
 
 @router.post('/extract/files', response_class=FileResponse)
-async def handle_file_upload_3(files: List[UploadFile]):
+async def handle_file_upload_3(files: List[UploadFile], background_tasks: BackgroundTasks):
     """ base prediction endpoint handler for multifile upload. """
     
     file_names = [saveFileLocally(fitem) for fitem in files ]
@@ -126,11 +125,11 @@ async def handle_file_upload_3(files: List[UploadFile]):
     data = dict(pdf= file_names)
     prediction = predict(data)    
 
-    cleanup_files(file_names[0]) 
+    [cleanup_files(file_item) for file_item in file_names] 
 
     resultsFile = savePredictionResults(prediction)
 
     routerLoger.getLogger().debug(f'{resultsFile}')
     
-    BackgroundTasks.add_task(cleanup_files, resultsFile)
+    background_tasks.add_task(cleanup_files, resultsFile)
     return resultsFile

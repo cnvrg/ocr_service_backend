@@ -1,1 +1,11 @@
 /dev/null
+23:56:59:INFO:ocr grpc server started
+23:57:52:INFO:ocr grpc server started
+23:58:07:INFO:received shutdown signal, Waiting 30 second to clear jobs
+23:58:07:INFO:completed gracefull shut down
+23:58:33:INFO:ocr grpc server started
+00:08:49:INFO:received shutdown signal, Waiting 30 second to clear jobs
+00:08:49:INFO:completed gracefull shut down
+00:09:05:INFO:ocr grpc server started
+00:17:38:INFO:received shutdown signal, Waiting 30 second to clear jobs
+00:17:38:INFO:completed gracefull shut down
