@@ -34,9 +34,15 @@ cpu_counts=(${CPU_COUNT} 8 ${CPU_SHARE} ${TOTAL_MEM_CPU} ${MEM_LIMIT_CPU} )
 WORKER_COUNT=$(printf "%s\n" "${cpu_counts[@]}" | sort -rn | tail -n1)
 
 # Check if REST_WORKER_COUNT is set then use it
-WORKER_COUNT=${REST_WORKER_COUNT:-${WORKER_COUNT}}
-echo "using ${WORKER_COUNT} workers"
+REST_WORKER_COUNT=${REST_WORKER_COUNT:-0}
 
+# if REST_WORKER_COUNT == 0 then use the calculation from above. 
+# else use the REST_WORKER_COUNT
+if [ ${REST_WORKER_COUNT} -gt 0 ] ; then 
+	WORKER_COUNT=${REST_WORKER_COUNT}
+fi
+
+echo "using ${WORKER_COUNT} workers"
 
 SERVICE_ENV_SCRIPT="${SCRIPT_DIRECTORY}/setup_service_env.sh"
 source ${SERVICE_ENV_SCRIPT}

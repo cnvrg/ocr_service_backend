@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 Container_Name=${1:-${USER}}
-Container_Image=${2:-"lamatriz/wlpu:ubuntu_20.04_MVP_s3"}
+Container_Image=${2:-"lamatriz/wlpu:ubuntu_20.04_ocr_worker_MVP_Set1_v3"}
 Constainer_cmd=${3:-"bash"}
 
 
