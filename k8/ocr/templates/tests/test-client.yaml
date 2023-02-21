@@ -11,9 +11,9 @@ spec:
     command: ["bash", "-c"]
     resources: 
       limits:
-        cpu: 8
+        cpu: {{ .Values.testDemo.resources.limits.cpu }}
       requests:
-        cpu: 8
+        cpu: {{ .Values.testDemo.resources.requests.cpu }}
     args:
     - |   
       sleep 60s

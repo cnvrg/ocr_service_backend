@@ -6,6 +6,11 @@
         "type": "integer",
         "minimum": 1
       },
+      "restWorkerCount": {
+        "description": "How many workers process rest (REST_WORKER_COUNT env variable)",
+        "type": "integer",
+        "minimum": 0
+      },
       "image": {
         "description": "Container Image",
         "properties": {
@@ -44,7 +49,19 @@
             },
             "type": "object",
             "required": ["repository", "name", "tag", "pullPolicy"]
+        },
+        "resources": {
+          "limits": {
+            "cpu": {
+              "type": "integer"
+            }
+          },
+          "requests": {
+            "cpu": {
+              "type": "integer"
+            }
           }
+        }
       },
       "service": {
         "description": "Service should run on two ports: one for RESTful API and another one for gRPC",
