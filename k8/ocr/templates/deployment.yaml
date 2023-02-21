@@ -16,6 +16,20 @@ spec:
       labels:
         {{- include "ocr.selectorLabels" . | nindent 8 }}
     spec:
+      tolerations:
+      - key: "kubernetes.io/putaside"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "habana.ai/gaudi"
+        operator: "Exists"
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
       imagePullSecrets:
         - name: {{ include "ocr.fullname" . }}-secret
       containers:
