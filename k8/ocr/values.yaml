@@ -6,14 +6,14 @@ replicaCount: 1
 restWorkerCount: 0
 
 image:
-  repository: lamatriz
+  repository: gildesh
   name: wlpu
   tag: ubuntu_20.04_ocr_worker_MVP_Set1_v3
   pullPolicy: Always
 
 testDemo:
   image:
-    repository: lamatriz
+    repository: gildesh
     name: wlpu
     tag: ubuntu_20.04_MVP_client_v3
     pullPolicy: Always
@@ -21,7 +21,7 @@ testDemo:
     limits:
       cpu: 8
     requests:
-      cpu: 8
+      cpu: 4
 
 
 service:
@@ -35,7 +35,7 @@ service:
   annotations: {}
 gracePeriod: 5
 
-namespace: mldev
+namespace: cnvrg-1
 
 resources:
   limits:

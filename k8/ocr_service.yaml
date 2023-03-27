@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: ocr-mvp-set1
-        image: lamatriz/wlpu:ubuntu_20.04_ocr_MVP_Set1_v3
+        image: gildesh/wlpu:ubuntu_20.04_ocr_MVP_Set1_v3
         command: ["/usr/bin/bash"]
         args: ["-c", "bash /root/ocr_service_backend/text-extraction/local_service/start_service.sh"]
         imagePullPolicy: Always

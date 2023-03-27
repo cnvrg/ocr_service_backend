@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: client-fe
-    image: lamatriz/wlpu:ubuntu_20.04_MVP_client_v3
+    image: gildesh/wlpu:ubuntu_20.04_MVP_client_v3
     command: ["sleep"]
     args: ["1h"]
     imagePullPolicy: Always

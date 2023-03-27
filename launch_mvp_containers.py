@@ -61,17 +61,17 @@ def main():
     containers = [
         container_info(
             "client_service_mvp_set1",
-            "lamatriz/wlpu:ubuntu_20.04_MVP_Set1",
+            "gildesh/wlpu:ubuntu_20.04_MVP_Set1",
             start_client,
         ),
         container_info(
             "s3_service_mvp_set1",
-            "lamatriz/wlpu:ubuntu_20.04_MVP_Set1",
+            "gildesh/wlpu:ubuntu_20.04_MVP_Set1",
             start_s3_service,
         ),
         container_info(
             "ocr_service_mvp_set1",
-            "lamatriz/wlpu:ubuntu_20.04_MVP_Set1",
+            "gildesh/wlpu:ubuntu_20.04_MVP_Set1",
             start_ocr_service,
         ),
     ]
