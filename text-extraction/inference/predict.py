@@ -1,14 +1,15 @@
 import os
 import PyPDF2
-
+import sys
 os.environ["USE_TORCH"] = "1"
 import torch
-from doctr.io import DocumentFile
-from doctr.models import ocr_predictor
 import base64
 from operator import itemgetter
 import binascii
-
+currpath = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(currpath)
+from doctr.io import DocumentFile
+from doctr.models import ocr_predictor
 if torch.cuda.is_available():
     predictor = ocr_predictor(pretrained=True).cuda()
 else:
@@ -45,7 +46,6 @@ def predict(data):
     prediction = {}
     for count, filepdf in enumerate(data["pdf"]):
         print(f"{filepdf=}")
-        """ 
         try:
             decoded = base64.b64decode(filepdf)  # decode the input file
             savepath = "file.pdf"
@@ -55,9 +55,8 @@ def predict(data):
             filename = "file.pdf"
             pdfFileObj = open(filename, "rb")
         except binascii.Error:
-        """
-        filename = filepdf
-        pdfFileObj = open(filepdf, "rb")
+        #filename = filepdf
+        #pdfFileObj = open(filepdf, "rb")
 
         # The pdfReader variable is a readable object that will be parsed.
         # pdfReader = PyPDF2.PdfFileReader(pdfFileObj) #PendingDeprecationWarning
